@@ -1,0 +1,66 @@
+﻿/* I hate Times New Roman. */
+body { font-family: "Trebuchet MS", Serif; }
+
+/* Gives the container a fixed 
+    width and centers it on the page. */
+#Container {
+  margin: 0 auto;
+  width: 900px;
+}
+
+/* Expand the table to fill the container, and
+    add a 2px black border around its outside edge. */
+table {
+  width: 100%;
+  border: 2px solid #000;
+  
+  /* Eliminates duplicate borders at top/left. */
+  border-collapse: collapse;
+}
+
+table thead tr th {
+  /* Set the heading's background image to something nice.
+      Use a similar background color, to maintain continuity. */
+  background-color: #000;
+  background-image: url(images/black-gradient.png);
+    
+  /* Set the foreground color to something readable on black. */
+  color: #fff;
+  
+  /* Give the heading a larger, bold style */
+  font-size: 18px;
+  font-weight: bold;
+  
+  /* Finally, make it the same height as the background image. */
+  height: 35px;
+}
+
+table tbody td {
+  /* Pure black is harsh on a white background. Soften slightly. */
+  color: #333;
+	
+  /* Give the &lt;td&gt; cell content some breathing room. */
+  padding: 4px;
+	
+  /* Create the illusion of gridlines between the cells. */
+  border-top: 1px solid #CCC;
+  border-left: 1px solid #CCC;
+}
+
+table tbody .loading {
+  /* Since the table may be empty, set a decent default height. */
+  height: 350px;
+
+  /* Center an animated progress indicator over the table body. */
+  background-image: url(images/progress-indicator.gif);
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#NextPage {
+  float: right;
+}
+
+#PrevPage {
+  float: left;
+}

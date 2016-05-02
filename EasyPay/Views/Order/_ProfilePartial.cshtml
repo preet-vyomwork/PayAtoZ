@@ -1,0 +1,94 @@
+﻿@model EasyPay.Models.UserProfile
+<div id="wrapper">
+    <div id="reg_title">
+        <h5>
+            @*<p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.UserProfileId }) |
+                @Html.ActionLink("Back to List", "Index")
+            </p>*@
+            Details @*| @Html.ActionLink("Back to List", "Index") | @Html.ActionLink("Edit", "Edit", new { id = Model.UserProfileId })*@
+        </h5>
+    </div>
+    <div>
+        <div id="inner_content" style="width: 920px;">
+            <div id="reg_form">
+                <fieldset id="left">
+                    @*<fieldset>*@
+                    @*<legend>UserProfile</legend>*@
+
+
+                    @Html.DisplayNameFor(model => model.UserName): &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                    @Html.DisplayFor(model => model.UserName)
+
+                    <br /><br />
+
+                    @Html.DisplayNameFor(model => model.Address): &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                    @Html.DisplayFor(model => model.Address)
+
+                    <br /><br />
+
+                    @Html.DisplayNameFor(model => model.City): &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                    @Html.DisplayFor(model => model.City)
+
+                    <br /><br />
+
+                    @Html.DisplayNameFor(model => model.State.StateName): &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                    @Html.DisplayFor(model => model.State.StateName)
+
+                    <br /><br />
+
+                    @Html.DisplayNameFor(model => model.PostalCode): &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                    @Html.DisplayFor(model => model.PostalCode)
+
+                </fieldset>
+                <fieldset id="right">
+
+                    @Html.DisplayNameFor(model => model.Phone): &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                    @Html.DisplayFor(model => model.Phone)
+
+                    <br /><br />
+
+                    @Html.DisplayNameFor(model => model.Email): &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                    @Html.DisplayFor(model => model.Email)
+                    <br /><br />
+
+
+                    @Html.DisplayNameFor(model => model.BirthDate): &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                    @Html.DisplayFor(model => model.BirthDate)
+
+                    <br /><br />
+
+                    @Html.DisplayNameFor(model => model.Age): &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                    @Html.DisplayFor(model => model.Age)
+
+                    <br /><br />
+
+                    @*@Html.DisplayNameFor(model => model.UserToken)
+
+
+                        @Html.DisplayFor(model => model.UserToken)*@
+
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,43 @@
+﻿@model EasyPay.Models.UserWallet
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>UserWallet</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserProfileId, "UserProfile")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("UserProfileId", String.Empty)
+            @Html.ValidationMessageFor(model => model.UserProfileId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Balance)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Balance)
+            @Html.ValidationMessageFor(model => model.Balance)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

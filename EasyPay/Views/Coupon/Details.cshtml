@@ -1,0 +1,139 @@
+﻿@model EasyPay.Models.Coupon
+@{
+    var imagePath = "~" + @Model.CouponImagepath;
+}
+<div id="wrapper">
+    <div id="reg_title">
+        <h5>
+            Details | @Html.ActionLink("Back to List", "Index")
+            @if (!@Model.Published)
+            {
+                <span> | </span> @Html.ActionLink("Edit", "Edit", new { id = Model.CouponId })
+            }
+        </h5>
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="reg_form">
+                <fieldset>
+
+                    <img src="@Url.Content(imagePath)" alt="Image" height="100" width="100" />
+                    <br /><br />
+                    @Html.DisplayName("Merchant"):
+
+
+                    @Html.DisplayFor(model => model.Merchant.MerchantName)
+                    <br /><br />
+
+
+                    @Html.DisplayNameFor(model => model.CouponTitle):
+
+
+                    @Html.DisplayFor(model => model.CouponTitle)
+                    <br /><br />
+
+
+                    @Html.DisplayNameFor(model => model.Store):
+
+
+                    @Html.DisplayFor(model => model.Store)
+                    <br /><br />
+
+
+                    @Html.DisplayNameFor(model => model.Type):
+
+
+                    @Html.DisplayFor(model => model.Type)
+                    <br /><br />
+
+
+                    @Html.DisplayNameFor(model => model.CouponCode):
+
+
+                    @Html.DisplayFor(model => model.CouponCode)
+                    <br /><br />
+
+
+                    @Html.DisplayNameFor(model => model.Url):
+
+
+                    @Html.DisplayFor(model => model.Url)
+                    <br /><br />
+
+
+                    @Html.DisplayNameFor(model => model.Description):
+
+
+                    @Html.DisplayFor(model => model.Description)
+                    <br /><br />
+
+
+                    @Html.DisplayNameFor(model => model.IsValid):
+
+                    @if (Model.IsValid)
+                    { @Html.DisplayName("True")}
+                    else
+                    { @Html.DisplayName("False")}
+                    @*@Html.DisplayFor(model => model.IsValid)*@
+                    <br /><br />
+
+
+                    @Html.DisplayNameFor(model => model.Published):
+
+                    @if (Model.Published)
+                    { @Html.DisplayName("True")}
+                    else
+                    { @Html.DisplayName("False")}
+                    @* @Html.DisplayFor(model => model.Published)*@
+                    <br /><br />
+
+
+                    @Html.DisplayNameFor(model => model.ValidityStart):
+
+
+                    @Html.DisplayFor(model => model.ValidityStart)
+                    <br /><br />
+
+
+                    @Html.DisplayNameFor(model => model.ValidityEnd):
+
+
+                    @Html.DisplayFor(model => model.ValidityEnd)
+                    <br /><br />
+
+
+                    @*@Html.DisplayNameFor(model => model.CouponImagepath):
+
+
+                        @Html.DisplayFor(model => model.CouponImagepath)
+                        <br /><br />*@
+
+
+                    @Html.DisplayNameFor(model => model.CouponValue):
+
+
+                    @Html.DisplayFor(model => model.CouponValue)
+                    <br /><br />
+
+
+                    @Html.DisplayNameFor(model => model.Terms):
+
+
+                    @Html.DisplayFor(model => model.Terms)
+                    <br /><br />
+
+
+                    @Html.DisplayNameFor(model => model.AdditionalFees):
+
+
+                    @Html.DisplayFor(model => model.AdditionalFees)
+                    <br /><br />
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CouponId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

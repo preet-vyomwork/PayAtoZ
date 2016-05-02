@@ -1,0 +1,81 @@
+﻿@model EasyPay.Models.ProviderService
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@*<h2>Create</h2>*@
+<div id="wrapper">
+    <div id="login_title">
+      <h5>Create</h5> 
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>ProviderService</legend>
+        <li>
+         <lable for="name">Provider</lable>  
+         </li>         
+        <div class="editor-field">
+            @Html.DropDownList("ProviderId", String.Empty)
+            @Html.ValidationMessageFor(model => model.ProviderId)
+        </div>
+
+        <li>
+       <lable for="name">Service Type</lable>  
+       </li>           
+        <div class="editor-field">
+            @Html.DropDownList("ServiceTypeId", String.Empty)
+            @Html.ValidationMessageFor(model => model.ServiceTypeId)
+        </div>
+
+        <li>
+       <lable for="name">Service Operator</lable>
+       </li>            
+        <div class="editor-field">
+            @Html.DropDownList("ServiceOperatorId", String.Empty)
+            @Html.ValidationMessageFor(model => model.ServiceOperatorId)
+        </div>
+
+        <li>
+        <lable for="name">Comission</lable>  
+        </li>          
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Comission)
+            @Html.ValidationMessageFor(model => model.Comission)
+        </div>
+
+        <li>
+        <lable for="name">Format</lable>  
+        </li>           
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Format)
+            @Html.ValidationMessageFor(model => model.Format)
+        </div>
+
+        <p>
+        <li>
+            <input type="submit" class="save_btn" />
+            </li>
+        </p>
+    </fieldset>
+}
+
+<div>
+<li>
+    @Html.ActionLink("Back to List", "Index")
+    </li>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

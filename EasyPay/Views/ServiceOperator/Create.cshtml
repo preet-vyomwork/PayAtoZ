@@ -1,0 +1,55 @@
+﻿@model EasyPay.Models.ServiceOperator
+@{
+    ViewBag.Title = "Create";
+}
+@*<h2>Create</h2>*@
+<div id="wrapper">
+    <div id="login_title">
+        <h5>
+            Create</h5>
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+                @using (Html.BeginForm())
+                {
+                    <fieldset>
+                        @Html.ValidationSummary(true)
+                        <legend>ServiceOperator</legend>
+                        <ul>
+                            <li>
+                                <lable for="name">Operator Name</lable>
+                                @Html.EditorFor(model => model.OperatorName)
+                                @Html.ValidationMessageFor(model => model.OperatorName)
+                            </li>
+                            <li>
+                                <lable for="name">Operator Code</lable>
+                            </li>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.OperatorCode)
+                                @Html.ValidationMessageFor(model => model.OperatorCode)
+                            </div>
+                            <li>
+                                <lable for="name">Service Type</lable>
+                            </li>
+                            <div class="editor-field">
+                                @Html.DropDownList("ServiceTypeId", String.Empty)
+                                @Html.ValidationMessageFor(model => model.ServiceTypeId)
+                            </div>
+                            <p>
+                                <li>
+                                    <input type="submit" class="save_btn" />
+                                </li>
+                            </p>
+                        </ul>
+                    </fieldset>
+                }
+                <div>
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
+        </div>
+    </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

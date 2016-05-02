@@ -1,0 +1,80 @@
+﻿@model EasyPay.Models.UserWallet
+@{
+    ViewBag.Title = "My Wallet";
+}
+<div id="wrapper">
+    <div id="wallet_title">
+        <h5>
+            My Wallet</h5>
+    </div>
+    <div id="container">
+        <div class="wallet_content">
+            <div id="current_bal">
+                <p>
+                    @ViewBag.WalletStatus
+                </p>
+                <p>
+                    Your Current Balance in Wallet is <span>@Html.DisplayFor(model => model.Balance)</span></p>
+            </div>
+            <div class="know_more">
+                <a href="#">Know more about Wallet</a></div>
+            <div class="wallet_line">
+            </div>
+            <div id="add_cash">
+                <div class="add_title">
+                    Add Cash to your Wallet and Get a Quick Recharge
+                </div>
+                <div id="wallet_amt">
+                    @using (Html.BeginForm("AddToWallet", "UserWallet", FormMethod.Post, new { @id = "AddToWallet_form", @class = "wallet_amt" }))
+                    {
+                        
+                        @Html.HiddenFor(p => p.UserProfileId);
+                        <input name="txtAmount" type="text" class="amt" />
+                        <input name="" type="submit" value="Go" class="go_btn" />
+                    }
+                </div>
+            </div>
+            <!--add cash-->
+            <div class="wallet_line">
+            </div>
+            <div id="wallet_act">
+                <div class="wallet_title">
+                    Know your Wallet Activities
+                </div>
+                <div class="last_trans">
+                    last transaction : none
+                </div>
+            </div>
+            <div id="trans_hist">
+                <div class="view_hist">
+                    View complete history of your transactions
+                </div>
+               @* <div class="trans_list">
+                    @foreach (EasyPay.Models.UserWalletLog item in ViewBag.walletLogList)
+                    {
+                        <div class="trans1">
+                            <div class="date">
+                                @Html.DisplayFor(modelItem => item.TransactionDate)</div>
+                            <div class="cash_in">
+                                Cash Deposited:
+                            </div>
+                            <div class="rs_icon">
+                                @Html.DisplayFor(modelItem => item.Amount)</div>
+                        </div>
+                       
+                    }
+                    <div class="wallet_arrows">
+                        <img src="images/left_arrow.png" width="22" height="17" />
+                        <img src="images/rht_arrow.png" width="22" height="17" />
+                    </div>
+                    <!--wallet arrows-->
+                </div>*@
+                <!--trans list-->
+            </div>
+            <!--trans hist-->
+        </div>
+        <!--wallet content-->
+    </div>
+    <!--container-->
+</div>
+<!--wrapper ends-->

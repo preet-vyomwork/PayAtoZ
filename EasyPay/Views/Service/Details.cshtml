@@ -1,0 +1,78 @@
+﻿@model EasyPay.Models.ProviderService
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@*<h2>Details</h2>*@
+<div id="wrapper">
+    <div id="login_title">
+      <h5>Details</h5> 
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+
+<fieldset>
+    <legend>ProviderService</legend>
+
+    <div class="display-label">
+    <li>
+         @Html.DisplayNameFor(model => model.Provider.ProviderName)
+         </li>
+    </div>
+    <div class="display-field">
+    <li>
+        @Html.DisplayFor(model => model.Provider.ProviderName)
+        </li>
+    </div>
+
+    <div class="display-label">
+    <li>
+         @Html.DisplayNameFor(model => model.ServiceType.ServiceTypeName)
+         </li>
+    </div>
+    <div class="display-field">
+    <li>
+        @Html.DisplayFor(model => model.ServiceType.ServiceTypeName)
+        </li>
+    </div>
+
+    <div class="display-label">
+    <li>
+         @Html.DisplayNameFor(model => model.ServiceOperator.OperatorName)
+         </li>
+    </div>
+    <div class="display-field">
+    <li>
+        @Html.DisplayFor(model => model.ServiceOperator.OperatorName)
+        </li>
+    </div>
+
+    <div class="display-label">
+    <li>
+         @Html.DisplayNameFor(model => model.Comission)
+         </li>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Comission)
+    </div>
+
+    <div class="display-label">
+    <li>
+         @Html.DisplayNameFor(model => model.Format)
+         </li>
+    </div>
+    <div class="display-field">
+    <li>
+        @Html.DisplayFor(model => model.Format)
+        </li>
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ProviderServiceId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+</div>
+</div>
+</div>

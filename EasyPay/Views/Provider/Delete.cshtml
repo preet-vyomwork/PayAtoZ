@@ -1,0 +1,44 @@
+﻿@model EasyPay.Models.Provider
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@*<h2>Delete</h2>*@
+<div id="wrapper">
+    <div id="login_title">
+      <h5>Delete</h5> 
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+
+
+<h3>Are you sure you want to delete this?</h3>
+
+<fieldset>
+<li>
+    <legend>Provider</legend>
+    </li>
+
+    <div class="display-label">
+    <li>
+         @Html.DisplayNameFor(model => model.ProviderName)
+         </li>
+    </div>
+    <div class="display-field">
+    <li>
+        @Html.DisplayFor(model => model.ProviderName)
+        </li>
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" class="go_btn"/> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+   
+}
+ </div>
+    </div>
+    </div>

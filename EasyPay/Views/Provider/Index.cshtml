@@ -1,0 +1,45 @@
+﻿@model IEnumerable<EasyPay.Models.Provider>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<h2>Index</h2>*@
+<div id="wrapper">
+    <div id="login_title">
+      <h5>Index</h5> 
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+<p>
+    @Html.ActionLink("Create New", "Create")
+    <li>
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProviderName)
+        </th>
+        <th></th>
+    </tr>
+</li>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProviderName)
+        </td>
+        <td>
+        <li>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProviderId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProviderId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProviderId })
+            </li>
+        </td>
+    </tr>
+    
+}
+</div>
+</div>
+</div>
+</table>

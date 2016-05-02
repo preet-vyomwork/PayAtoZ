@@ -1,0 +1,154 @@
+﻿@model EasyPay.Models.Order
+@{
+    ViewBag.Title = "Response";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        var orderStatus = $("#Status").val();
+        var orderId = $("#OrderId").val();
+        if (orderStatus == "4") {
+            var url = "/ConfirmOrder/DoRecharge";
+            $.get(url, { OrderId: orderId }, function (data) {
+                if (data.Status == '4') {
+                    var divWaiting = $(".waiting");
+                    $.each(divWaiting, function (i, val) {
+                        $(this).addClass("done").removeClass('waiting');
+                    });
+                }
+            });
+        }
+    });
+</script>
+<!--container-->
+@*<h2>Response</h2>*@
+<div id="page_container">
+    <div id="success">
+        <h2>@Html.DisplayFor(model => model.Remarks)</h2>
+        <p>
+            Your recharge has been done successfully. Find your order details below.</p>
+    </div>
+    <div id="rech_details">
+        <p>
+            Recharge of <span>Rs @Html.DisplayFor(model => model.AmountString)</span> with Mobile
+            no <span>@Html.DisplayFor(model => model.ItemCode)</span> has been done successfully.</p>
+    </div>
+    <div id="rech_order">
+        <div class="order">
+            <div class="head1">
+                Your Order ID:</div>
+            <div class="value1">@Html.DisplayFor(model => model.OrderId)</div>
+        </div>
+        <div class="order">
+            <div class="head">
+                Amount Received(Rs):</div>
+            <div class="value">@Html.DisplayFor(model => model.AmountString)</div>
+            <div class="waiting">
+                Done</div>
+        </div>
+        <div class="order">
+            @Html.HiddenFor(model => model.OrderId)
+            @Html.HiddenFor(model => model.Status)
+            <div class="head">
+                Recharge with:</div>
+            <div class="value">@Html.DisplayFor(model => model.ProviderService)</div>
+            <div class="waiting">
+                Done</div>
+        </div>
+    </div>
+    <!--rech order-->
+    <div class="confirm_line">
+    </div>
+    <div id="user_links">
+        <ul>
+            <li>@Html.ActionLink("Go to My Account", "Index", "Home")</li>
+            <li>@Html.ActionLink("View Wallet Balance", "Index", "Home")</li>
+            <li>@Html.ActionLink("New Recharge", "Index", "Home")</li>
+        </ul>
+    </div>
+</div>
+<!--container-->
+@*<fieldset>
+    <legend>Order</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UserProfileId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserProfileId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ProviderServiceId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProviderServiceId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.OrderDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OrderDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ItemCode)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ItemCode)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Remarks)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Remarks)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Amount)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Amount)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.commission)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.commission)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Status)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Status)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AmountString)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AmountString)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.OrderStatus)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OrderStatus)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.comments)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.comments)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.OrderId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@ 

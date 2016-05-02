@@ -1,0 +1,103 @@
+﻿@model EasyPay.Models.RegisterModel
+@{
+    ViewBag.Title = "Register";
+}
+<div id="wrapper">
+    <div id="reg_title">
+        <h5>
+            Register / Sign Up
+        </h5>
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div class="welcome">
+                <p>
+                    Welcome to Payatoz. New user get registered here. If you are already a member, <span>
+                        @Html.ActionLink("Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                    </span>
+                </p>
+                <div class="reg_line">
+                </div>
+            </div>
+            <div id="reg_form">
+                @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+                {
+                    @Html.AntiForgeryToken()
+                    @*@Html.ValidationSummary()*@
+
+                    <fieldset id="left">
+                        @*<legend>Registration Form</legend>*@
+                        @Html.LabelFor(m => m.UserName)<em>*</em>
+                        @Html.TextBoxFor(m => m.UserName)
+                        @Html.ValidationMessageFor(m => m.UserName)
+                        <br />
+                        @Html.LabelFor(m => m.Password)<em>*</em>
+                        @Html.PasswordFor(m => m.Password)
+                        @Html.ValidationMessageFor(m => m.Password)
+                        <br />
+                        @Html.LabelFor(m => m.ConfirmPassword)<em>*</em>
+                        @Html.PasswordFor(m => m.ConfirmPassword)
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                        <br />
+                        @Html.LabelFor(m => m.Phone)<em>*</em>
+                        @Html.TextBoxFor(m => m.Phone)
+                        @Html.ValidationMessageFor(m => m.Phone)
+                        <br />
+                        @Html.LabelFor(m => m.Email)<em>*</em>
+                        @Html.TextBoxFor(m => m.Email)
+                        @Html.ValidationMessageFor(m => m.Email)
+                        <br />
+                    </fieldset>
+                    <fieldset id="right">
+                        <label for="address">Address:<em>*</em> </label>
+                        @Html.TextAreaFor(m => m.Address)
+                        @Html.ValidationMessageFor(m => m.Address)
+                        <br />
+                        @Html.LabelFor(m => m.City)<em>*</em>
+                        @Html.TextBoxFor(m => m.City)
+                        @Html.ValidationMessageFor(m => m.City)
+                        <br />
+                        @Html.LabelFor(m => m.StateCollection, "State")<em>*</em>
+                        @Html.DropDownListFor(m => m.StateID, Model.StateCollection, "Select State", new { @id = "drpState", @class = "state" })
+                        @Html.ValidationMessageFor(m => m.StateCollection)
+                        <br />
+                        @Html.LabelFor(m => m.PostalCode)<em>*</em>
+                        @Html.TextBoxFor(m => m.PostalCode)
+                        @Html.ValidationMessageFor(m => m.PostalCode)
+                        <br />
+                        @*@Html.LabelFor(m => m.BirthDate)
+                            @Html.TextBoxFor(m => m.BirthDate)
+                            @Html.ValidationMessageFor(m => m.BirthDate)
+                            <br />
+                            <input type="submit" value="Register" />*@
+
+                    </fieldset>
+                    <center>
+
+                        <input type="image" id="image" src="@Url.Action("Image", "Account")" alt="Click to Refresh" />
+                        <br />
+                        @Html.LabelFor(m => m.Captcha)
+                        @Html.TextBoxFor(m => m.Captcha)
+                        @Html.ValidationMessageFor(m => m.Captcha)
+                        <br />
+                        @if (@ViewBag.ErrorCaptcha != null)
+                        {
+                            <div style="color:red; font-size:smaller;">
+                                @ViewBag.ErrorCaptcha
+                            </div>
+                        }
+
+
+                    </center>
+                    @*<p class="check"> <input name="terms" type="checkbox" value="" id="terms" /> I have read and understood the <span>terms and conditions</span> and <span>privacy policy </span>and agree to it.</p>*@
+                    <center>
+                        <div class="buttons" style="float:none"> <input name="" type="submit" value="Register" class="reg_sub" /><input name="" type="reset" value="Reset" class="reg_reset" /></div>
+                    </center>
+                }
+                @section Scripts {
+                    @Scripts.Render("~/bundles/jqueryval")
+                }
+            </div>
+        </div>
+    </div>
+</div>

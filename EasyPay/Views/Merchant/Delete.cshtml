@@ -1,0 +1,71 @@
+﻿@model EasyPay.Models.Merchant
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<fieldset>
+    <legend>Merchant</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MerchantName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MerchantName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LogoImagePath)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LogoImagePath)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.URL)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.URL)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Location)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Location)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EmailId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EmailId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ContactNo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ContactNo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Terms)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Terms)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CategoryId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CategoryId)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.MerchantId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

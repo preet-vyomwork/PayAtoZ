@@ -1,0 +1,173 @@
+﻿@model IEnumerable<EasyPay.Models.Order>
+@{
+    ViewBag.Title = "Index";
+}
+<div id="wrapper">
+    <div id="login_title">
+        <h5>
+            Index</h5>
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+                <p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>
+                <table>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.UserProfile.UserName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.ProviderService.Format)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.OrderDate)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.ItemCode)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.Remarks)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.Amount)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.commission)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.AmountString)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.OrderStatus)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.OrderStatusImage)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.comments)
+                        </td>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserProfile.UserName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProviderService.Format)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrderDate)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ItemCode)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Remarks)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.commission)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AmountString)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrderStatus)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrderStatusImage)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.comments)
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.OrderId }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.OrderId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.OrderId }) |
+                                @Html.ActionLink("Status", "Status", new { id = item.OrderId })
+                            </td>
+                        </tr>  
+@*<input type="button" class= "save_btn" />*@
+@*  @foreach (var oi in Model)
+                            {
+                                @Html.DisplayNameFor(model => model.comments)
+                                @Html.DisplayFor(modelItem => oi.comments)
+                                @Html.ActionLink("open modal", "create", null, null, new { id = "modalLink" })
+                                <div id="dialog"></div>
+                            }*@
+                            
+@*<li>
+                            <input type="submit" class="save_btn" />
+                            <input type="button" class= "save_btn" />
+                         </li>*@
+@*@foreach (var oi in Model)
+                            {
+                                
+                                @Html.DisplayNameFor(model => model.comments)
+                                @Html.DisplayFor(modelItem => oi.comments)
+                                
+                            }*@
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

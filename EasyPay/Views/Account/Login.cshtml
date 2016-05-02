@@ -1,0 +1,103 @@
+﻿@model EasyPay.Models.LoginModel
+@{
+    ViewBag.Title = "";
+}
+<script type="text/javascript">
+    temp = -1;
+</script>
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+@*<section id="loginForm">
+<h2>Log in to PayAtoZ !</h2>
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Log in Form</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName)
+                @Html.ValidationMessageFor(m => m.UserName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </li>
+            <li>
+                @Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+            </li>
+        </ol>
+        <input type="submit" value="Log in" />
+    </fieldset>
+    <p>
+        @Html.ActionLink("Register", "Register") if you don't have an account.
+    </p>
+}
+</section>*@
+<div id="wrapper">
+    <div id="login_title">
+        <h5>
+            Log In</h5>
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+                @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+                {
+                    @Html.AntiForgeryToken()
+                   @* @Html.ValidationSummary(true)*@
+                    <ul>
+                        <li>
+                            <lable for="name">User Name</lable>
+                            @Html.TextBoxFor(m => m.UserName)
+                            @Html.ValidationMessageFor(m => m.UserName)
+                        </li>
+                        <li>
+                            <lable for="name">Password</lable>
+                            @Html.PasswordFor(m => m.Password)
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </li>
+                        <li class="fpw">@Html.ActionLink("Forgot Password?", "ForgotPassword", "Account")</li>
+                        <input type="submit" class="login_btn" />
+                    </ul> 
+            
+            
+                }
+            </div>
+            <!--login form-->
+            <div id="login_mid">
+                <img src="../../images/or.png" width="72" height="71" />
+            </div>
+            <div id="signin_img">
+                @*
+        <ul>
+        <li><a href="#"><img src="../../images/signin_fb.png" width="204" height="47" /></a></li>
+        <li><a href="#"><img src="../../images/signin_tw.png" width="204" height="47" /></a></li>
+        
+        </ul>*@
+                <div id="register_msg">
+                    <p>
+                        New User?
+                        @Html.ActionLink("Register with us", "Register", "Account", routeValues: new { returnUrl = ViewBag.ReturnUrl }, htmlAttributes: new { id = "registerLink" })
+                    </p>
+                    <div class="reg_line">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--inner content-->
+    </div>
+    <!--container-->
+</div>@*<section class="social" id="socialLoginForm">
+    <h2>Use another service to log in.</h2>
+    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+</section>*@ @*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+*@

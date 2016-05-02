@@ -1,0 +1,133 @@
+﻿@model EasyPay.Models.Coupon
+@{
+    var imagePath = "~" + @Model.CouponImagepath;
+}
+@*@{
+        ViewBag.Title = "CopyCoupon";
+    }
+
+    <h2>CopyCoupon</h2>*@
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="wrapper">
+        <div id="reg_title">
+            <h5>
+                Create | @Html.ActionLink("Back to List", "Index")
+            </h5>
+        </div>
+        <div id="container">
+            <div id="inner_content">
+                <div id="reg_form">
+
+                    
+                    <fieldset id="left">
+                        <img src="@Url.Content(imagePath)" alt="Image" height="100" width="100" />
+                        <br /><br />
+                        @*@Html.DisplayName("Merchant")
+
+
+                            @Html.DisplayFor(model => model.MerchantId)*@
+
+
+                        @Html.LabelFor(model => model.CouponTitle)
+
+                        @Html.TextBoxFor(model => model.CouponTitle)
+
+
+                        @Html.LabelFor(model => model.Store)
+
+                        @Html.TextBoxFor(model => model.Store)
+
+
+                        @Html.LabelFor(model => model.Type)
+
+                        @Html.TextBoxFor(model => model.Type)
+
+
+                        @Html.LabelFor(model => model.CouponCode)
+
+                        @Html.TextBoxFor(model => model.CouponCode)
+
+
+                        @Html.LabelFor(model => model.Url)
+
+                        @Html.TextBoxFor(model => model.Url)
+
+
+                        @Html.LabelFor(model => model.Description)
+
+                        @Html.TextBoxFor(model => model.Description)
+
+
+                        @Html.LabelFor(model => model.IsValid)
+
+
+                        @Html.CheckBoxFor(model => model.IsValid, new { @style = "margin:23px 0 0 0;" })
+                        @Html.ValidationMessageFor(model => model.IsValid)
+
+                        @Html.LabelFor(model => model.Published)
+
+                        @Html.CheckBoxFor(model => model.Published, new { @style = "margin:23px 0 0 0;" })
+                        @Html.ValidationMessageFor(model => model.Published)
+                    </fieldset>
+                    <fieldset id="right">
+
+                        @Html.LabelFor(model => model.ValidityStart)
+
+
+                        @Html.TextBoxFor(model => model.ValidityStart)
+
+
+                        @Html.LabelFor(model => model.ValidityEnd)
+
+                        @Html.TextBoxFor(model => model.ValidityEnd)
+
+
+                        @Html.LabelFor(model => model.CouponValue)
+
+                        @Html.TextBoxFor(model => model.CouponValue)
+                        @Html.LabelFor(model => model.Terms)
+
+                        @Html.TextBoxFor(model => model.Terms)
+
+
+                        @Html.LabelFor(model => model.AdditionalFees)
+
+                        @Html.TextBoxFor(model => model.AdditionalFees)
+
+
+                        @Html.LabelFor(model => model.ValidInCities)
+
+                        @Html.TextBoxFor(model => model.ValidInCities)
+
+
+                        @Html.Label("Category")
+
+                        @Html.DropDownListFor(model => model.Category_CategoryId, (IEnumerable<SelectListItem>)ViewBag.CategoryId, "Select ...", new { @style = "width: 270px;height: 40px;" })
+                        @Html.ValidationMessageFor(model => model.Category_CategoryId)
+
+
+                        @Html.Label("Add Coupons")
+                        @Html.TextBoxFor(model => model.TotalCoupons)
+                        @Html.ValidationMessageFor(model => model.TotalCoupons)
+
+                        <p>
+                            <input type="submit" value="Create" class="reg_sub" />
+                        </p>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

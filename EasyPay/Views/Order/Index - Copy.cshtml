@@ -1,0 +1,148 @@
+﻿@model IEnumerable<EasyPay.Models.Order>
+@{
+    ViewBag.Title = "Order History";
+}
+<h2>
+    My Orders</h2>
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<div class="tabcontents">
+    <div id="view1" class="tabcontent">
+        <div class="myorder_line">
+        </div>
+        <div id="order_heads">
+            <div class="date_icon">
+            </div>
+            <div class="order_id">
+                Order ID</div>
+            <div class="order_type">
+                Type</div>
+            <div class="order_details">
+                Order Details</div>
+            <div class="order_status">
+                @Html.DisplayNameFor(model => model.Status)</div>
+            <div class="more">
+                More</div>
+        </div>
+        <!--order heads-->
+        <div class="myorder_line">
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="myorder_details">
+                <div class="date_value">
+                    @Html.DisplayFor(modelItem => item.OrderDate)</div>
+                <div class="id_value">
+                    @Html.DisplayFor(modelItem => item.OrderId)</div>
+                <div class="type_value">
+                    <img src="images/ph.gif" width="20" height="29" /></div>
+                <div class="details_value">
+                    <div class="ph">
+                        @Html.DisplayFor(modelItem => item.ItemCode)</div>
+                    <div class="op_icon">
+                        <img src="images/idea.gif" width="51" height="32" /></div>
+                    <div class="rech_rs">
+                        @Html.DisplayFor(modelItem => item.Amount)</div>
+                </div>
+                <div class="status_value">
+                    <div class="status_icon">
+                        <img src="images/suceess.gif" width="24" height="20" /></div>
+                    <div class="status">
+                        @Html.DisplayFor(modelItem => item.OrderStatus)</div>
+                </div>
+                <div class="more_value">
+                    <div class="more_icons">
+                        <a href="#">
+                            <img src="images/file.gif" width="41" height="31" /></a><a href="#"><img src="images/repeat.gif"
+                                width="32" height="31" /></a></div>
+                </div>
+                <div class="myorder_line">
+                </div>
+            </div>
+        }
+        <div class="page_icons">
+            <div class="prev_arrow">
+                <img src="images/left_arrow.png" width="22" height="17" /></div>
+            <div class="selected_page">
+                1</div>
+            <div>
+                2</div>
+            <div>
+                3</div>
+            <div class="next_arrow">
+                <img src="images/rht_arrow.png" width="22" height="17" /></div>
+        </div>
+    </div>
+    <!--tab1 content-->
+</div>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserProfile.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProviderService.ServiceOperator.OperatorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemCode)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.commission)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.ProviderService.ServiceOperator.ServiceType.ServiceTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserProfile.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProviderService.ServiceOperator.OperatorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemCode)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Remarks)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.commission)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.ProviderService.ServiceOperator.ServiceType.ServiceTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderStatus)
+            </td>
+            @* <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.OrderId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.OrderId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.OrderId })
+            </td>*@
+        </tr>
+    }
+</table>

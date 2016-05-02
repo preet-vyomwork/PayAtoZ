@@ -1,0 +1,198 @@
+﻿@model IEnumerable<EasyPay.Models.Coupon>
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    th {
+        font-weight: bold;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+    }
+</style>
+
+<br /><br /><br /><br />
+<div id="wrapper">
+    <div id="reg_title">
+        <h5>
+            @{
+                int id = 0;
+                if (Request.Url.Segments.Length >= 3)
+                {
+                    id = Convert.ToInt32(Request.Url.Segments[3]);
+                }
+                var i = 1;
+
+    //var mercId=Model.Select(l=>l.MerchantId).FirstOrDefault();
+            }
+            List | <a href="@Url.Action("Create", "Coupon", new { id = @id })">Create</a>
+            @if (@id != 0)
+            {
+              <span> | </span><a href= @Url.Action("Dashboard", "Merchant", new { id = @id })>Dashboard</a>
+            }
+        </h5>
+    </div>
+    <div id="container" style="width:auto">
+        <div id="inner_content" style="background:none;border-top:none;width:auto">
+            <div id="reg_form" style="width:auto">
+                @*<center>*@
+                @if (Model != null)
+                {
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.DisplayName("SrNo.")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Merchant")
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CouponTitle)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Store)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Type)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CouponCode)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Url)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </th>
+                            @*<th>
+                                    @Html.DisplayNameFor(model => model.IsValid)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Published)
+                                </th>*@
+                            <th>
+                                @Html.DisplayName("Valid From")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Valid To")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Coupon")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Total Coupons")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Available Coupons")
+                            </th>
+                            @*<th>
+                                    @Html.DisplayNameFor(model => model.CouponValue)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Terms)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AdditionalFees)
+                                </th>*@
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+
+                            //if (@item.ValidityEnd >= DateTime.Today && @item.AvailableCoupons > 0)
+                            //{
+                            var imagePath = "~" + item.CouponImagepath;
+
+
+                            <tr>
+                                <td>
+                                    @i
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Merchant.MerchantName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CouponTitle)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Store)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Type)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CouponCode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Url)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.IsValid)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Published)
+                                    </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ValidityStart)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ValidityEnd)
+                                </td>
+
+                                <td>
+                                    <img src="@Url.Content(imagePath)" alt="Image" height="40" width="60" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalCoupons)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AvailableCoupons)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.CouponValue)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Terms)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AdditionalFees)
+                                    </td>*@
+                                <td>
+                                    <a title="Details" href="@Url.Action("Details", "Coupon", new { id = item.CouponId })"><img src="~/Images/forms-icon.png" alt="Details" /></a>
+                                    @if (!@item.Published)
+                                    {
+                                        <a title="Edit" href="@Url.Action("Edit", "Coupon", new { id = item.CouponId })"><img height="16" width="16" src="~/Images/edit-icon.png" alt="Edit" /></a>
+                                        <span onclick="return confirm('Are you sure you want to delete?')"><a title="Delete" href="@Url.Action("Delete", "Coupon", new { id = item.CouponId })"><img src="~/Images/DeleteRed.png" alt="Delete" /></a></span>
+                                    }
+                                    else
+                                    {
+                                        <a title="Create Copy Coupon" href="@Url.Action("CopyCoupon", "Coupon", new { id = item.CouponId })"><img src="~/Images/copy.png" alt="CopyCoupon" /></a>
+                                    }
+                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.CouponId }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.CouponId }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.CouponId })*@
+                                </td>
+
+                            </tr>
+                                    // }
+                                    i++;
+                        }
+
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Administration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Administration</h2>
+
+<section class="contact">
+    <p>
+        <span class="label">Balance:</span>
+        <span>@ViewBag.Balance</span>
+    </p>
+    <p>
+        <span class="label">Prepaid:</span>
+        <span>@ViewBag.UserPrepaidCommision</span>
+    </p>
+    <p>
+        <span class="label">Postpaid:</span>
+        <span>@ViewBag.UserPostpaidCommision</span>
+    </p>
+</section>

@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyPay", "EasyPay\EasyPay.csproj", "{18613EB2-FA91-4BF1-A6CD-FFE7325E69EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyPay.Tests", "EasyPay.Tests\EasyPay.Tests.csproj", "{B3A33399-006B-4326-ABE4-0B144B7FB0D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceEngine", "ServiceEngine\ServiceEngine.csproj", "{9A37B980-F67B-4F2D-B894-0B07A4BA9672}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18613EB2-FA91-4BF1-A6CD-FFE7325E69EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18613EB2-FA91-4BF1-A6CD-FFE7325E69EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18613EB2-FA91-4BF1-A6CD-FFE7325E69EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18613EB2-FA91-4BF1-A6CD-FFE7325E69EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3A33399-006B-4326-ABE4-0B144B7FB0D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3A33399-006B-4326-ABE4-0B144B7FB0D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3A33399-006B-4326-ABE4-0B144B7FB0D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3A33399-006B-4326-ABE4-0B144B7FB0D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A37B980-F67B-4F2D-B894-0B07A4BA9672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A37B980-F67B-4F2D-B894-0B07A4BA9672}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A37B980-F67B-4F2D-B894-0B07A4BA9672}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A37B980-F67B-4F2D-B894-0B07A4BA9672}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

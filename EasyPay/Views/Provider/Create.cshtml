@@ -1,0 +1,45 @@
+﻿@model EasyPay.Models.Provider
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@*<h2>Create</h2>*@
+<div id="wrapper">
+    <div id="login_title">
+      <h5>Create</h5> 
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        @*<legend>Provider</legend>*@
+
+        <lable for="name">Provide Name</lable>
+            
+        
+        
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProviderName)
+            @Html.ValidationMessageFor(model => model.ProviderName)
+        </div>
+   
+        <p>
+            <input type="submit" class="reg_submit" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+</div>
+</div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

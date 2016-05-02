@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "";
+}
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+    <h2>@ViewBag.Message</h2>
+</hgroup>
+<div id="wrapper">
+    <div id="page_container">
+        <div class="page_content">
+            <div id="left_menu">
+                <div class="staticpage-navigation">
+                    <ul>
+                        <li>@Html.ActionLink("About Us", "About", "Home", new { @class = "active"})</li>
+                        <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                        @*<li>@Html.ActionLink("FAQs", "FAQ", "Home")</li>*@
+                        <li>@Html.ActionLink("Terms & Conditions", "TermsCondition", "Home")</li>
+                        <li>@Html.ActionLink("Refund Policy", "Refund", "Home")</li>
+                        <li>@Html.ActionLink("Privacy policy", "Privacy", "Home")</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="right_content">
+                <h2>
+                    About Us
+                </h2>
+                <div class="bot_line">
+                </div>
+                <p>
+                    We are a start-up organization based in Ahmedabad, Gujarat, India. The website is
+                    into offering services related to online recharging. Payatoz recharges mobile, data
+                    cards, and DTH recharge.
+                </p>
+                <h3>
+                    What does Payatoz do?</h3>
+                <p>
+                    The service we provide enables a customer to pay for the recharge in real time.
+                    The most important and crucial aspect of payatoz is its security offerings. The
+                    website provides a safe and fraud-proof environment for smooth transactions.
+                </p>
+                <p>
+                    Our website is an open platform that caters to people’s needs. Those who have less
+                    time on hand and are constantly on the move, seek services from every telecom service
+                    provider. We include all types of credit cards, debit card, and cash cards. With
+                    the establishment of our website, we offer people the convenience of getting their
+                    recharge done while sitting within the comfort zone of their homes. With our quick
+                    services, customers visiting our website can make their demands from anywhere at
+                    any point of time. At Payatoz, we are committed to quality, reliability, credibility
+                    and excellence. We believe in driving our business growth with transparency, high-performance
+                    and enhanced productivity.
+                </p>
+                
+                <h3>
+                    We promise you:</h3>
+                <ul class="circle">
+                    <li>Smooth and instant recharge</li>
+                    <li>Hassle free user interface</li>
+                   @* <li>Coupon delivery with no delay</li>
+                    <li>Hassle free voucher redemption with no complex terms and conditions or hidden costs</li>*@
+                    <li>Best discounts available in the market</li>
+                    <li>100% customer satisfaction</li>
+                </ul>
+            </div>
+        </div>
+        <!--page content-->
+    </div>
+    <!--container-->
+</div>
+<aside>
+    @*<h3>Aside Title</h3>
+    <p>
+        Use this area to provide additional information.
+    </p>
+    <ul>
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("About Us", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+    </ul>*@
+</aside>

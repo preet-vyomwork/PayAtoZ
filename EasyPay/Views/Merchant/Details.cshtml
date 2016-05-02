@@ -1,0 +1,62 @@
+﻿@model EasyPay.Models.Merchant
+@{
+    var imagePath = "~" + @Model.LogoImagePath;
+}
+
+<div id="wrapper">
+    <div id="reg_title">
+        <h5>
+            Details | @Html.ActionLink("Back to List", "Index") | @Html.ActionLink("Edit", "Edit", new { id = Model.MerchantId })
+        </h5>
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="reg_form">
+                <fieldset id="left">
+                    @*<legend>Merchant</legend>*@
+                    <img src="@Url.Content(imagePath)" alt="Image" height="100" width="100" />
+                    <br /><br />
+                    @Html.DisplayNameFor(model => model.MerchantName):
+                    @Html.DisplayFor(model => model.MerchantName)
+                    <br /><br />
+                    @Html.DisplayNameFor(model => model.URL):
+                    @Html.DisplayFor(model => model.URL)
+                    <br /><br />
+                  </fieldset>
+                <fieldset id="right">
+                    @Html.DisplayNameFor(model => model.EmailId):
+                    @Html.DisplayFor(model => model.EmailId)
+                    <br /><br />
+                    @Html.DisplayNameFor(model => model.ContactNo):
+                    @Html.DisplayFor(model => model.ContactNo)
+                    <br /><br />
+                    @Html.DisplayNameFor(model => model.Category.CategoryName):
+                    @Html.DisplayFor(model => model.Category.CategoryName)
+                    <br /><br />
+                    @Html.DisplayNameFor(model => model.Address):
+                    @Html.DisplayFor(model => model.Address)
+                    <br /><br />
+                    @Html.DisplayNameFor(model => model.City):
+                    @Html.DisplayFor(model => model.City)
+                    <br /><br />
+                    @Html.DisplayNameFor(model => model.PostalCode):
+                    @Html.DisplayFor(model => model.PostalCode)
+                    <br /><br />
+                    @Html.DisplayNameFor(model => model.State.StateName):
+                    @Html.DisplayFor(model => model.State.StateName)
+                    <br /><br />
+                    @Html.DisplayNameFor(model => model.Terms):
+                    @Html.DisplayFor(model => model.Terms)
+                    <br /><br />
+                    @Html.DisplayNameFor(model => model.CategoryId):
+                    @Html.DisplayFor(model => model.CategoryId)
+
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MerchantId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@

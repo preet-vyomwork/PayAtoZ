@@ -1,0 +1,38 @@
+﻿@model IEnumerable<EasyPay.Models.UserWallet>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>
+    Index</h2>
+<p>
+    @Html.ActionLink("Create Wallet", "Create","UserWalletLog")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserProfile.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Balance)
+        </th>
+        <th>
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserProfile.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Balance)
+            </td>
+            <td>
+                @Html.ActionLink("Add Money", "Create", "UserWalletLog",new { id = item.UserProfileId },null)
+                |
+                @Html.ActionLink("Details", "Index","UserWalletLog", new { id = item.UserProfileId },null) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserWalletId })
+            </td>
+        </tr>
+    }
+</table>

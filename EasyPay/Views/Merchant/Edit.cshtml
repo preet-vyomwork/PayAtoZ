@@ -1,0 +1,151 @@
+﻿@model EasyPay.Models.UserMerchantViewModel
+
+<style type="text/css">
+
+</style>
+
+<script type="text/javascript">
+    $(function () {
+        $(document).ready(function () {
+            $("#catId2").hide();
+            $("#catId1").show();
+            return false;
+        });
+        $(".showhide").click(function () {
+            //$("#catId2").toggleClass("vis");
+            $("#catId2").hide();
+            $("#catId1").show();
+            return false;
+        });
+        //$("#hideme").click(function () {
+        //    $("#catId2").hide();
+        //    return false;
+        //});
+        $(".t-button").click(function () {
+            //$("#catId1").toggleClass("inv");
+            $("#catId1").hide();
+            $("#catId2").show();
+            return false;
+        });
+    });
+
+</script>
+
+@{
+    //ViewBag.Title = "Game";
+    //Layout = "~/Views/Shared/_GameLayout.cshtml";
+    var imagePath = "~" + @Model.Merchant.LogoImagePath;
+}
+
+@using (Html.BeginForm("Edit",
+                        "Merchant",
+                        FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="wrapper">
+        <div id="reg_title">
+            <h5>
+                Edit | @Html.ActionLink("Back to List", "Index")
+            </h5>
+        </div>
+        <div id="container">
+            <div id="inner_content">
+                <div id="reg_form">
+                    <center>
+                        @Html.DisplayName("Merchant"): &nbsp;&nbsp;
+                        @Html.DisplayFor(model => model.Merchant.MerchantName)
+                    </center>
+                    <br /><br />
+                    <fieldset id="left">
+
+
+                        @Html.HiddenFor(model => model.Merchant.MerchantId)
+
+
+
+                        @*@Html.ValidationMessageFor(model => model.MerchantName)*@
+
+                        <label for="file">Edit Image:</label>
+                        <input type="file" name="file" id="file" style="margin:20px 0 0 0" />
+                        <img src="@Url.Content(imagePath)" alt="Image" height="30" width="30" />
+
+
+                        @Html.LabelFor(model => model.Merchant.URL)
+
+
+                        @Html.EditorFor(model => model.Merchant.URL)
+                        @Html.ValidationMessageFor(model => model.Merchant.URL)
+
+                        @Html.LabelFor(model => model.Merchant.EmailId)
+
+                        @Html.EditorFor(model => model.Merchant.EmailId)
+                        @Html.ValidationMessageFor(model => model.Merchant.EmailId)
+
+                        @Html.LabelFor(model => model.Merchant.ContactNo)
+
+                        @Html.EditorFor(model => model.Merchant.ContactNo)
+                        @Html.ValidationMessageFor(model => model.Merchant.ContactNo)
+
+                        @Html.LabelFor(model => model.Merchant.Terms)
+
+                        @Html.EditorFor(model => model.Merchant.Terms)
+                        @Html.ValidationMessageFor(model => model.Merchant.Terms)
+
+
+                        <div id="catId1" style="display: block; text-align: right; float: left; margin: 10px 100px; ">
+                            @Html.DisplayName("Category") &nbsp; &nbsp;&nbsp;&nbsp;
+                            @Html.DisplayFor(model => model.Merchant.Category.CategoryName) <a title="change" class="t-button">&nbsp;&nbsp;<img width="16" height="16" src="~/Images/edit-icon.png" /></a>
+                        </div>
+                        <div id="catId2">
+                            @Html.Label("Category")
+                            @Html.DropDownListFor(model => model.Merchant.CategoryId, (IEnumerable<SelectListItem>)ViewBag.CategoryId, "Select ...", new { @style = "height: 40px;" })
+                            @Html.ValidationMessageFor(model => model.Merchant.CategoryId)
+                            <a class="showhide" title="cancel">
+                                <img width="16" height="16" src="~/Images/cancel.png" />
+                            </a>
+                        </div>
+
+                    </fieldset>
+                    <fieldset id="right">
+                        @Html.LabelFor(model => model.Merchant.Address)
+                        @Html.TextAreaFor(model => model.Merchant.Address)
+                        @Html.ValidationMessageFor(model => model.Merchant.Address)
+
+                        @Html.LabelFor(model => model.Merchant.City)
+                        @Html.TextBoxFor(model => model.Merchant.City)
+                        @Html.ValidationMessageFor(model => model.Merchant.City)
+
+                        @Html.LabelFor(model => model.RegisterModel.StateCollection, "State")
+                        @Html.DropDownListFor(m => m.RegisterModel.StateID, Model.RegisterModel.StateCollection, "Select State", new { @id = "drpState", @class = "state" })
+                        @Html.ValidationMessageFor(m => m.RegisterModel.StateCollection)
+
+                        @Html.LabelFor(model => model.Merchant.PostalCode)
+                        @Html.TextBoxFor(model => model.Merchant.PostalCode)
+                        @Html.ValidationMessageFor(model => model.Merchant.PostalCode)
+
+
+                        @*@Html.EditorFor(model => model.CategoryId)*@
+
+                        @* </div>*@
+                        <p>
+                            <div> <input type="submit" value="Save" class="reg_sub" /></div>
+                        </p>
+                        @*<p>
+                                <input type="submit" value="Save" />
+                            </p>*@
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

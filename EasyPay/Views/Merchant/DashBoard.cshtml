@@ -1,0 +1,63 @@
+﻿@model EasyPay.Models.Merchant
+
+@{
+    var imagePath = "~" + @Model.LogoImagePath;
+    var merchantId = "/Merchant/Edit?Id=" + @Model.MerchantId;
+    ViewBag.GlobalMId = @Model.MerchantId;
+}
+
+@if (Request.IsAuthenticated)
+{
+    <div id="wrapper">
+        <div id="reg_title">
+            <h5>
+               
+                    DashBoard | <a title="Coupon" href="@Url.Action("Dashboard", "Merchant", new { id = Model.MerchantId })">Profile</a> | <a title="Coupon" href="@Url.Action("Index", "Coupon", new { id = Model.MerchantId })">Coupon</a> | @Html.ActionLink("Account", "Manage", "Account") |
+</h5>
+        </div>
+
+        <div id="container">
+
+            <div id="inner_content">
+                <div>
+                    <p>
+                        <div style="float:right"><a href=@Url.Content(merchantId)>Edit</a> </div>
+                    </p>
+                    <br />
+                </div>
+                <div id="reg_form">
+
+                    <fieldset id="left">
+                        <img src="@Url.Content(imagePath)" alt="Image" height="100" width="150"/>
+                        <br /><br />
+                        @Html.DisplayNameFor(model => model.MerchantName):&nbsp;&nbsp;&nbsp;
+                        @Html.DisplayFor(model => model.MerchantName)
+                        <br /><br />
+
+                        @Html.DisplayNameFor(model => model.URL):&nbsp;&nbsp;&nbsp;
+                        @Html.DisplayFor(model => model.URL)
+                        <br /><br />
+                    </fieldset>
+                    <fieldset id="right">
+                        @*@Html.DisplayNameFor(model => model.Location):
+                        @Html.DisplayFor(model => model.Location)
+                        <br /><br />*@
+                        @Html.DisplayNameFor(model => model.EmailId):&nbsp;&nbsp;&nbsp;
+                        @Html.DisplayFor(model => model.EmailId)
+                        <br /><br />
+                        @Html.DisplayNameFor(model => model.ContactNo):&nbsp;&nbsp;&nbsp;
+                        @Html.DisplayFor(model => model.ContactNo)
+                        <br /><br />
+                        @Html.DisplayNameFor(model => model.Terms):&nbsp;&nbsp;&nbsp;
+                        @Html.DisplayFor(model => model.Terms)
+                        <br /><br />
+                        @Html.DisplayName("Category"):&nbsp;&nbsp;&nbsp;
+                        @Html.DisplayFor(model => model.Category.CategoryName)
+                    </fieldset>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

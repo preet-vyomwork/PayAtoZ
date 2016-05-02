@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "";
+}
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+    <h2>@ViewBag.Message</h2>
+</hgroup>
+<div id="wrapper">
+    <div id="page_container">
+        <div class="page_content">
+            <div id="left_menu">
+                <div class="staticpage-navigation">
+                    <ul>
+                        <li>@Html.ActionLink("About Us", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                        @*<li>@Html.ActionLink("FAQs", "FAQ", "Home")</li>*@
+                        <li>@Html.ActionLink("Terms & Conditions", "TermsCondition", "Home")</li>
+                        <li>@Html.ActionLink("Refund Policy", "Refund", "Home", new { @class = "active"})</li>
+                        <li>@Html.ActionLink("Privacy policy", "Privacy", "Home")</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="right_content">
+                <h2>
+                    Refund policy
+                </h2>
+                <div class="bot_line">
+                </div>
+                <p>
+                    At Payatoz, we are committed to quality, reliability, credibility and excellence.
+                    We believe in driving our business growth with transparency, high-performance and
+                    enhanced productivity.
+                </p>
+                <h3>
+                    How refund works ?</h3>
+                <p>
+                    We try our best to achieve success in every recharge, still if any recharge fails
+                    we ensure that customer get the money back.
+                </p>
+                <p>
+                    There are two options with the customer for getting money back.
+                    <ul class="circle">
+                        <li>Refund in user virtual wallet. Payatoz provide easy and convenient option of user
+                            wallet. By default when any transaction is refunded, we update the user wallet with
+                            the recharge amount. Here customers get the money back instantly as wallet cash,
+                            and can use cash immediately for next recharge. User’s wallet is safe, secure and
+                            easy way to store cash. By this option user doesn’t have to wait long to get money
+                            back from bank.</li>
+                        <li>Refund back in source account. To get the money back into same source account of
+                            customers’ bank, in my account page, in front of each transaction with refund status
+                            has ‘Refund to bank’ button. User can initiated the refund by click on this button.
+                            Normally refund from the bank will take 10 -21 days as per the rules of the bank.</li>
+                    </ul>
+                </p>
+                <p>
+                    As mentioned above in either ways customer will always get money back in case of
+                    refund of the transaction. We always communicate the customer with the updates about
+                    the refund money. Kindly note that we are liable to only providing you a valid recharge
+                    or refund to the extent of payment received by us. We shall not be responsible failed
+                    recharge on our system due to wrong number or any other consequences.
+                    In any case if reuqired , You can always email or contact us for help. We are always ready to help you.
+                </p>
+                <p>
+                    Your trust is our wealth.
+                </p>
+            </div>
+        </div>
+        <!--page content-->
+    </div>
+    <!--container-->
+</div>
+<aside>
+    @*<h3>Aside Title</h3>
+    <p>
+        Use this area to provide additional information.
+    </p>
+    <ul>
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("About Us", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+    </ul>*@
+</aside>

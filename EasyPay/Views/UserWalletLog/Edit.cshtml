@@ -1,0 +1,69 @@
+﻿@model EasyPay.Models.UserWalletLog
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>UserWalletLog</legend>
+
+        @Html.HiddenFor(model => model.UserWalletLogId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserProfileId, "UserProfile")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("UserProfileId", String.Empty)
+            @Html.ValidationMessageFor(model => model.UserProfileId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Amount)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsRefund)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsRefund)
+            @Html.ValidationMessageFor(model => model.IsRefund)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TransactionDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TransactionDate)
+            @Html.ValidationMessageFor(model => model.TransactionDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Remarks)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Remarks)
+            @Html.ValidationMessageFor(model => model.Remarks)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,116 @@
+﻿ <script type="text/javascript">
+     $(document).ready(function () {
+         $('ul').accordion();
+     });
+</script>
+<div id="wrapper">
+    <div id="page_container">
+        <div class="page_content">
+            <div id="left_menu">
+                <div class="staticpage-navigation">
+                    <ul>
+                        <li>@Html.ActionLink("About Us", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                        @*<li>@Html.ActionLink("FAQs", "FAQ", "Home")</li>*@
+                        <li>@Html.ActionLink("Terms & Conditions", "TermsCondition", "Home", new { @class = "active" })</li>
+                        <li>@Html.ActionLink("Refund Policy", "Refund", "Home")</li>
+                        <li>@Html.ActionLink("Privacy policy", "Privacy", "Home")</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="right_content">
+                <h2>
+                    FAQs</h2>
+                <div class="bot_line">
+                </div>
+                <ul class="accordion">
+                    <li><a href="#america">Recharge Related Queries</a>
+                        <ul>
+                            <li><a href="#america-newyork">What should I do if recharge is not done?</a>
+                                <div>
+                                    <span>Wait for 5 minutes after the payment is successfully done. If your mobile number
+                                        is still not recharged then go to link support.payatoz.com and register a complaint.
+                                        We will respond to it as soon as possible.</span></div>
+                            </li>
+                            <li><a href="#america-sanfransisco">Does the recharge happen immediately?</a>
+                                <div>
+                                    <span>Yes. You get your recharge immediately. As soon as payment is made, you will get
+                                        a confirmation mail from payatoz.com and a recharge message from your mobile operator.
+                                        Generally it takes less than 10 seconds for the transaction to complete.</span></div>
+                            </li>
+                            <li><a href="#america-washington">Can I recharge for my friends and relatives also?</a>
+                                <div>
+                                    <span>Absolutely. You can recharge for your loved ones using the same account. You just
+                                        need to know the mobile number to make a successful recharge.</span></div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#antarctica">Coupons Related Queries</a>
+                        <div>
+                            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                                deserunt mollit anim id est laborum.</span></div>
+                    </li>
+                    <li><a href="#afroeuasia">Balance Related Queries</a>
+                        <ul>
+                            <li class="current"><a href="#afroeuasia-amsterdam">How do I see my Balance?</a>
+                                <div>
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                                        deserunt mollit anim id est laborum.</span></div>
+                            </li>
+                            <li><a href="#afroeuasia-paris">What can I use my Balance for?</a>
+                                <div>
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                                        deserunt mollit anim id est laborum.</span></div>
+                            </li>
+                            <li><a class="#afroeuasia-stockholm">How does money appear in my Balance?</a>
+                                <div>
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                                        deserunt mollit anim id est laborum.</span></div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#australia">General Queries</a>
+                        <ul>
+                            <li><a href="#australia-melbourne">How can I know the tariff rates of my circle?</a>
+                                <div>
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                                        deserunt mollit anim id est laborum.</span></div>
+                            </li>
+                            <li><a href="#australia-perth">How can I contact if I have some classified queries?</a>
+                                <div>
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                                        deserunt mollit anim id est laborum.</span></div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--page content-->
+    </div>
+    <!--container-->
+</div>

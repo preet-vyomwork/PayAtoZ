@@ -1,0 +1,49 @@
+﻿@model EasyPay.Models.Role
+
+@*@{
+    ViewBag.Title = "CreateRole";
+}
+
+<h2>CreateRole</h2>*@
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="wrapper">
+        <div id="reg_title">
+            <h5>
+                Create | @Html.ActionLink("Back to List", "Index") | @Html.ActionLink("Roles", "RolesListing")
+            </h5>
+        </div>
+        <div id="container">
+            <div id="inner_content">
+                <div id="reg_form">
+                    <fieldset>
+                        @*<legend>Role</legend>*@
+
+                        
+                            @Html.LabelFor(model => model.RoleName)
+                        
+                       
+                            @Html.TextBoxFor(model => model.RoleName)
+                            @Html.ValidationMessageFor(model => model.RoleName)
+                       
+
+                        <p>
+                            <input type="submit" value="Create" class="reg_sub" />
+                        </p>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

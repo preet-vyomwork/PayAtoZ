@@ -1,0 +1,37 @@
+﻿@model EasyPay.Models.ServiceType
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@*<h2>Details</h2>*@
+<div id="wrapper">
+    <div id="login_title">
+      <h5>Details</h5> 
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+
+<fieldset>
+    <legend>ServiceType</legend>
+
+    <div class="display-label">
+    <li>
+         @Html.DisplayNameFor(model => model.ServiceTypeName)
+         </li>
+    </div>
+    <div class="display-field">
+    <li>
+        @Html.DisplayFor(model => model.ServiceTypeName)
+        </li>
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ServiceTypeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+</div>
+    </div>
+    </div>
+    

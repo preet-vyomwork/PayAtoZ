@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Confirm User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="wrapper">
+    <div id="header">
+        <h2>@ViewBag.Title.</h2>
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="reg_form">
+                @using (Html.BeginForm(new { returnUrl = ViewBag.ReturnUrl }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+               
+                    <div>
+                        Please check your Email Inbox, a confirm usertoken is Sent to @ViewBag.Email.
+                    </div>
+                    <br />
+                    <div>
+                        <label title="UserToken" for="UserToken">
+                            UserToken :</label>
+                        @Html.TextBox("txtUserToken")
+                    </div>
+                    <input type="submit" class="login_btn" />
+                }
+            </div>
+        </div>
+    </div>
+</div>

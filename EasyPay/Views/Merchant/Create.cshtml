@@ -1,0 +1,108 @@
+﻿@model EasyPay.Models.UserMerchantViewModel
+
+
+
+@using (Html.BeginForm("Create",
+                        "Merchant",
+                        FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="wrapper">
+        <div id="reg_title">
+            <h5>
+                Create | @Html.ActionLink("Back to List", "Index")
+            </h5>
+        </div>
+        <div id="container">
+            <div id="inner_content">
+                <div id="reg_form">
+                    <fieldset>
+
+                        @*<legend>Merchant</legend>*@
+
+                        @Html.LabelFor(model => model.Merchant.MerchantName)
+
+                        @Html.EditorFor(model => model.Merchant.MerchantName)
+                        @Html.ValidationMessageFor(model => model.Merchant.MerchantName)
+
+                        @Html.LabelFor(model => model.RegisterModel.UserName)
+
+                        @Html.EditorFor(model => model.RegisterModel.UserName)
+                        @Html.ValidationMessageFor(model => model.RegisterModel.UserName)
+
+
+                        @Html.LabelFor(model => model.RegisterModel.Password)
+
+                        @Html.EditorFor(model => model.RegisterModel.Password)
+                        @Html.ValidationMessageFor(model => model.RegisterModel.Password)
+
+
+                        @Html.LabelFor(model => model.Merchant.EmailId)
+
+                        @Html.EditorFor(model => model.Merchant.EmailId)
+                        @Html.ValidationMessageFor(model => model.Merchant.EmailId)
+
+                        <label for="file">Upload Image:</label>
+                        <input type="file" name="file" id="file" style="margin:20px 0 0 0" />
+                        @*<input type="submit" value="Upload Image" />*@
+
+                        @Html.LabelFor(model => model.Merchant.URL)
+
+                        @Html.EditorFor(model => model.Merchant.URL)
+                        @Html.ValidationMessageFor(model => model.Merchant.URL)
+
+                        @Html.LabelFor(model => model.Merchant.Address)
+
+                        @Html.EditorFor(model => model.Merchant.Address)
+                        @Html.ValidationMessageFor(model => model.Merchant.Address)
+                        @Html.LabelFor(model => model.Merchant.City)
+
+                        @Html.EditorFor(model => model.Merchant.City)
+                        @Html.ValidationMessageFor(model => model.Merchant.City)
+
+
+                        @Html.LabelFor(model => model.RegisterModel.StateCollection, "State")
+                        @Html.DropDownListFor(m => m.RegisterModel.StateID, Model.RegisterModel.StateCollection, "Select State", new { @id = "drpState", @class = "state" })
+                        @Html.ValidationMessageFor(m => m.RegisterModel.StateCollection)
+
+                        @Html.LabelFor(model => model.Merchant.PostalCode)
+
+                        @Html.EditorFor(model => model.Merchant.PostalCode)
+                        @Html.ValidationMessageFor(model => model.Merchant.PostalCode)
+
+
+                        @Html.LabelFor(model => model.Merchant.ContactNo)
+
+                        @Html.EditorFor(model => model.Merchant.ContactNo)
+                        @Html.ValidationMessageFor(model => model.Merchant.ContactNo)
+
+                        @Html.LabelFor(model => model.Merchant.Terms)
+
+                        @Html.EditorFor(model => model.Merchant.Terms)
+                        @Html.ValidationMessageFor(model => model.Merchant.Terms)
+
+                        @Html.Label("Category")
+
+                        @Html.DropDownListFor(model => model.Merchant.CategoryId, (IEnumerable<SelectListItem>)ViewBag.CategoryId, "Select ...", new { @style = "width: 270px;height: 40px;" })
+                        @Html.ValidationMessageFor(model => model.Merchant.CategoryId)
+
+                        <p>
+                            <div> <input type="submit" value="Create" class="reg_sub" /> </div>
+
+                        </p>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

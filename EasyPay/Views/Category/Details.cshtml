@@ -1,0 +1,47 @@
+﻿@model EasyPay.Models.Category
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@*<h2>Details</h2>*@
+<div id="wrapper">
+    <div id="login_title">
+        <h5>
+            Details</h5>
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+
+<fieldset>
+    @*<legend>Category</legend>*@
+
+    <div class="display-label">
+    <li>
+         @Html.DisplayNameFor(model => model.CategoryName)
+         </li>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CategoryName)
+    </div>
+
+    <div class="display-label">
+    <li>
+         @Html.DisplayNameFor(model => model.CategoryClassName)
+         </li>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CategoryClassName)
+    </div>
+</fieldset>
+<p>
+<li>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.CategoryId }) |
+    @Html.ActionLink("Back to List", "Index")
+    </li>
+</p>
+</div>
+</div>
+</div>
+</div>

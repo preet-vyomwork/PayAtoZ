@@ -1,0 +1,177 @@
+﻿@model EasyPay.Models.Coupon
+
+@{
+    //ViewBag.Title = "Game";
+    //Layout = "~/Views/Shared/_GameLayout.cshtml";
+    var imagePath = "~" + @Model.CouponImagepath;
+}
+
+
+@using (Html.BeginForm("Edit",
+                        "Coupon",
+                        FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="wrapper">
+        <div id="reg_title">
+            <h5>
+                Edit | @Html.ActionLink("Back to List", "Index")
+            </h5>
+        </div>
+        <div id="container">
+            <div id="inner_content">
+                <div id="reg_form">
+                    <center>
+                        <div>
+                            @Html.DisplayName("Merchant") -
+
+                            @Html.DisplayFor(model => model.Merchant.MerchantName)
+                        </div>
+                    </center>
+                    <fieldset id="left">
+                       
+                        @Html.HiddenFor(model => model.CouponId)
+                       
+                        @*@Html.DropDownListFor(model => model.MerchantId, (IEnumerable<SelectListItem>)ViewBag.MerchantId, "Select ...", new { @style = "width: 270px;height: 40px;" })*@
+                        @Html.ValidationMessageFor(model => model.MerchantId)
+
+
+
+                        @Html.LabelFor(model => model.CouponTitle)
+
+
+                        @Html.TextBoxFor(model => model.CouponTitle)
+                        @Html.ValidationMessageFor(model => model.CouponTitle)
+
+
+
+                        @Html.LabelFor(model => model.Store)
+
+
+                        @Html.TextBoxFor(model => model.Store)
+                        @Html.ValidationMessageFor(model => model.Store)
+
+
+
+                        @Html.LabelFor(model => model.Type)
+
+
+                        @Html.TextBoxFor(model => model.Type)
+                        @Html.ValidationMessageFor(model => model.Type)
+
+
+
+                        @Html.LabelFor(model => model.CouponCode)
+
+
+                        @Html.TextBoxFor(model => model.CouponCode)
+                        @Html.ValidationMessageFor(model => model.CouponCode)
+
+
+
+                        @Html.LabelFor(model => model.Url)
+
+
+                        @Html.TextBoxFor(model => model.Url)
+                        @Html.ValidationMessageFor(model => model.Url)
+
+
+
+                        @Html.LabelFor(model => model.Description)
+
+
+                        @Html.TextAreaFor(model => model.Description)
+                        @Html.ValidationMessageFor(model => model.Description)
+
+                    </fieldset>
+                    <fieldset id="right">
+
+                        @Html.LabelFor(model => model.IsValid)
+
+                        @Html.CheckBoxFor(model => model.IsValid, new { @style = "margin:23px 0 0 0;" })
+                        @Html.ValidationMessageFor(model => model.IsValid)
+
+                        @Html.LabelFor(model => model.Published)
+
+
+                        @Html.CheckBoxFor(model => model.Published, new { @style = "margin:23px 0 0 0;" })
+                        @Html.ValidationMessageFor(model => model.Published)
+
+
+
+                        @Html.LabelFor(model => model.ValidityStart)
+
+                      
+                        @Html.TextBoxFor(model => model.ValidityStart)
+                        @Html.ValidationMessageFor(model => model.ValidityStart)
+
+
+
+                        @Html.LabelFor(model => model.ValidityEnd)
+
+
+                        @Html.TextBoxFor(model => model.ValidityEnd)
+                        @Html.ValidationMessageFor(model => model.ValidityEnd)
+
+
+                        <label for="file">Edit Image:</label>
+                        <input type="file" name="file" id="file" style="margin:20px 0 0 0" />
+                        <img src="@Url.Content(imagePath)" alt="Image" height="30" width="30" />
+                        @*@Html.LabelFor(model => model.CouponImagepath)
+
+
+                            @Html.EditorFor(model => model.CouponImagepath)
+                            @Html.ValidationMessageFor(model => model.CouponImagepath)*@
+
+
+
+                        @Html.LabelFor(model => model.CouponValue)
+
+
+                        @Html.TextBoxFor(model => model.CouponValue)
+                        @Html.ValidationMessageFor(model => model.CouponValue)
+
+
+
+                        @Html.LabelFor(model => model.Terms)
+
+
+                        @Html.TextBoxFor(model => model.Terms)
+                        @Html.ValidationMessageFor(model => model.Terms)
+
+
+
+                        @Html.LabelFor(model => model.AdditionalFees)
+
+
+                        @Html.TextBoxFor(model => model.AdditionalFees)
+                        @Html.ValidationMessageFor(model => model.AdditionalFees)
+
+                        @Html.Label("Add Coupons")
+
+
+                        @Html.TextBoxFor(model => model.TotalCoupons)
+                        @Html.ValidationMessageFor(model => model.TotalCoupons)
+
+
+                        <p>
+                            <div> <input type="submit" value="Save" class="reg_sub" /></div>
+                        </p>
+
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

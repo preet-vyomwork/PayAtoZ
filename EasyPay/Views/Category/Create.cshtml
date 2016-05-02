@@ -1,0 +1,52 @@
+﻿@model EasyPay.Models.Category
+@{
+    ViewBag.Title = "Create";
+}
+@*<h2>Create</h2>*@
+<div id="wrapper">
+    <div id="login_title">
+        <h5>
+            Create</h5>
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
+
+                    <fieldset>
+                        @*<legend>Category</legend>*@
+                        <li>
+                            <lable for="name">Category Name</lable>
+                        </li>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.CategoryName)
+                            @Html.ValidationMessageFor(model => model.CategoryName)
+                        </div>
+                        <li>
+                            <lable for="name">Category Class Name</lable>
+                        </li>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.CategoryClassName)
+                            @Html.ValidationMessageFor(model => model.CategoryClassName)
+                        </div>
+                        <p>
+                        <li>
+                            <input type="submit" class="save_btn" />
+                            </li>
+                        </p>
+                    </fieldset>
+                }
+                <div>
+                <li>
+                    @Html.ActionLink("Back to List", "Index")
+                    </li>
+                </div>
+                @section Scripts {
+                    @Scripts.Render("~/bundles/jqueryval")
+                }
+            </div>
+        </div>
+    </div>
+</div>

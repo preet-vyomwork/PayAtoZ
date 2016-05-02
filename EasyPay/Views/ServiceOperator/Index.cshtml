@@ -1,0 +1,70 @@
+﻿@model IEnumerable<EasyPay.Models.ServiceOperator>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<h2>Index</h2>*@
+<div id="wrapper">
+    <div id="login_title">
+      <h5>Index</h5> 
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <td>
+        <li>
+            @Html.DisplayNameFor(model => model.OperatorName)
+           </li>
+        </td>
+        <td>
+        
+            @Html.DisplayNameFor(model => model.OperatorCode)
+            
+        </td>
+        <td>
+       
+            @Html.DisplayNameFor(model => model.ServiceType.ServiceTypeName)
+            
+        </td>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+        <li>
+            @Html.DisplayFor(modelItem => item.OperatorName)
+            </li>
+        </td>
+        <td>
+        <li>
+            @Html.DisplayFor(modelItem => item.OperatorCode)
+            </li>
+        </td>
+        <td>
+        <li>
+            @Html.DisplayFor(modelItem => item.ServiceType.ServiceTypeName)
+            </li>
+        </td>
+        <td>
+        <li>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ServiceOperatorId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ServiceOperatorId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ServiceOperatorId })
+            </li>
+        </td>
+    </tr>
+}
+
+</table>
+</div>
+</div>
+</div>
+</div>>

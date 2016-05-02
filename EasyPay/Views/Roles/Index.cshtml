@@ -1,0 +1,108 @@
+﻿@model IEnumerable<EasyPay.Models.UserRoleViewModel>
+
+@*@{
+        ViewBag.Title = "Index";
+    }
+
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    th {
+        font-weight: bold;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+    }
+</style>
+
+<br /><br /><br /><br />
+<div id="wrapper">
+    <div id="reg_title">
+        <h5>
+            List | @Html.ActionLink("Create New Role", "CreateRole") | @Html.ActionLink("Roles", "RolesListing")
+        </h5>
+    </div>
+    <div id="container">
+        <div id="inner_content" style="background:none;border-top:none">
+            <div id="reg_form">
+                <table>
+                    <tr>
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.UserProfileId)
+                        </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.UserName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Age)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RoleName)
+                        </th>
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.RoleId)
+                        </th>*@
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @*<td>
+                                @Html.DisplayFor(modelItem => item.UserProfileId)
+                            </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Age)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RoleName)
+                            </td>
+                            @*<td>
+                                @Html.DisplayFor(modelItem => item.RoleId)
+                            </td>*@
+                            <td>
+                                <a title="Details" href="@Url.Action("Details", "Roles", new { userId = item.UserProfileId })"><img src="~/Images/forms-icon.png" alt="Details" /></a>
+                                <a title="Edit" href="@Url.Action("EditUserRole", "Roles", new { userId = item.UserProfileId })"><img height="16" width="16" src="~/Images/edit-icon.png" alt="Edit" /></a>
+                                <span onclick="return confirm('Are you sure you want to delete?')"><a title="Delete" href="@Url.Action("Delete", "Merchant", new { userId = item.UserProfileId })"><img src="~/Images/DeleteRed.png" alt="Delete" /></a></span>
+
+
+                                @*@Html.ActionLink("Edit", "EditUserRole", new { /* id=item.PrimaryKey */ }) |
+                                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

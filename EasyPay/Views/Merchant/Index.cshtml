@@ -1,0 +1,104 @@
+﻿@model IEnumerable<EasyPay.Models.Merchant>
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    th {
+        font-weight: bold;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+    }
+</style>
+
+<br /><br /><br /><br />
+<div id="wrapper">
+    <div id="reg_title">
+        <h5>
+            List | @Html.ActionLink("Create New", "Create") | @Html.ActionLink("Create Coupon", "Create", "Coupon")
+        </h5>
+    </div>
+    <div id="container">
+        <div id="inner_content" style="background:none;border-top:none">
+            <div id="reg_form">
+                @*<center>*@
+                @if (Model != null)
+                {
+                    <table>
+                        <tr>
+                            <th>
+                                @Html.DisplayName("Merchant")
+                            </th>
+                            @*<th>
+                                    @Html.DisplayNameFor(model => model.LogoImagePath)
+                                </th>*@
+                            <th>
+                                @Html.DisplayName("Website")
+                            </th>
+                            @*<th>
+                                @Html.DisplayName("Location")
+                            </th>*@
+                            <th>
+                                @Html.DisplayName("Email Id")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Phone")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Terms")
+                            </th>
+                            @*<th>
+                                    @Html.DisplayNameFor(model => model.CategoryId)
+                                </th>*@
+                            @*<th></th>*@
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MerchantName)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.LogoImagePath)
+                                    </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.URL)
+                                </td>
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.Location)
+                                </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmailId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ContactNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Terms)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.CategoryId)
+                                    </td>*@
+                                <td>
+                                    <a title="Details" href="@Url.Action("Details", "Merchant", new { id = item.MerchantId })"><img src="~/Images/forms-icon.png" alt="Details" /></a>
+                                    <a title="Edit" href="@Url.Action("Edit", "Merchant",new{id=item.MerchantId})"><img src="~/Images/edit-icon.png" height="16" width="16" alt="Edit" /></a>
+                                    <span onclick="return confirm('Are you sure you want to delete?')"><a title="Delete" href="@Url.Action("Delete", "Merchant", new { id = item.MerchantId })"><img src="~/Images/DeleteRed.png" alt="Delete" /></a></span>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                }
+                @*</center>*@
+            </div>
+        </div>
+    </div>
+</div>

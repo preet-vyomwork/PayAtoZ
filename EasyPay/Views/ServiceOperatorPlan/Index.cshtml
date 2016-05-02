@@ -1,0 +1,153 @@
+﻿@model IEnumerable<EasyPay.Models.ServiceOperatorPlan>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="wrapper">
+    <div id="login_title">
+        <h5>Index</h5>
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+
+                <h2>Index</h2>
+
+                <p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>
+                <table>
+
+                    <td>
+                    <tr>
+                        <li>
+                            @Html.DisplayNameFor(model => model.ServiceOperator.OperatorName)
+                        </li>
+                    </tr>
+                    <tr>
+                        <li>
+                            @Html.DisplayNameFor(model => model.PlanName)
+                        </li>
+                    </tr>
+                    <tr>
+                        <li>
+                            @Html.DisplayNameFor(model => model.Validity)
+                        </li>
+                    </tr>
+                    <tr>
+                        <li>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </li>
+                    </tr>
+                    <tr>
+                        <li>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </li>
+                    </tr>
+                    <tr>
+                        <li>
+                            @Html.DisplayNameFor(model => model.State.StateName)
+                        </li>
+                    </tr>
+                    <th></th>
+                    </td>
+
+                    @*<tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ServiceOperator.OperatorName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PlanName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Validity)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Price)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.State.StateName)
+                            </th>
+                            <th></th>
+                        </tr>*@
+                    @foreach (var item in Model)
+                    {
+
+                        <div>
+                            <tr>
+                                <li>
+                                    @Html.DisplayFor(modelItem => item.ServiceOperator.OperatorName)
+                                </li>
+                            </tr>
+                            <tr>
+                                <li>
+                                    @Html.DisplayFor(modelItem => item.PlanName)
+                                </li>
+                            </tr>
+                            <tr>
+                                <li>
+                                    @Html.DisplayFor(modelItem => item.Validity)
+                                </li>
+                            </tr>
+                            <tr>
+                                <li>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </li>
+                            </tr>
+                            <tr>
+                                <li>
+                                    @Html.DisplayFor(modelItem => item.Price)
+                                </li>
+                            </tr>
+                            <tr>
+                                <li>
+                                    @Html.DisplayFor(modelItem => item.State.StateName)
+                                </li>
+                            </tr>
+                            <td>
+                                <li>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.ServiceOperatorPlanId }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.ServiceOperatorPlanId }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ServiceOperatorPlanId })
+                                </li>
+                            </td>
+                        </div>
+                    }
+                    @*@foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ServiceOperator.OperatorName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PlanName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Validity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Price)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.State.StateName)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.ServiceOperatorPlanId }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.ServiceOperatorPlanId }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ServiceOperatorPlanId })
+                                </td>
+                            </tr>
+                        }*@
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

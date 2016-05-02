@@ -1,0 +1,87 @@
+﻿@model EasyPay.Models.ProviderService
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@*<h2>Edit</h2>*@
+<div id="wrapper">
+    <div id="login_title">
+      <h5>Edit</h5> 
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>ProviderService</legend>
+
+        @Html.HiddenFor(model => model.ProviderServiceId)
+
+         <lable for="name">Provider</lable>
+            
+        
+        <div class="editor-field">
+            @Html.DropDownList("ProviderId", String.Empty)
+            @Html.ValidationMessageFor(model => model.ProviderId)
+        </div>
+
+        <li>
+        <lable for="name">Service Type</lable>
+          
+        
+        <div class="editor-field">
+            @Html.DropDownList("ServiceTypeId", String.Empty)
+            @Html.ValidationMessageFor(model => model.ServiceTypeId)
+        </div>
+        </li> 
+
+        <li>
+        <lable for="name">Service Operator</lable>
+            
+        <div class="editor-field">
+            @Html.DropDownList("ServiceOperatorId", String.Empty)
+            @Html.ValidationMessageFor(model => model.ServiceOperatorId)
+        </div>
+        </li>
+
+        <li>
+        <lable for="name">Comission</lable>
+            
+        
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Comission)
+            @Html.ValidationMessageFor(model => model.Comission)
+        </div>
+        </li>
+
+        <li>
+        <lable for="name">Format</lable>
+            
+        
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Format)
+            @Html.ValidationMessageFor(model => model.Format)
+        </div>
+        </li>
+        <p>
+        <li>
+            <input type="submit" class="save_btn" />
+            </li>
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+</div>
+</div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,66 @@
+﻿@model IEnumerable<EasyPay.Models.Role>
+
+@*@{
+        ViewBag.Title = "RolesListing";
+    }
+
+    <h2>RolesListing</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    th {
+        font-weight: bold;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+    }
+</style>
+
+<div id="wrapper">
+    <div id="reg_title">
+        <h5>
+            Edit | @Html.ActionLink("Back to List", "Index") | @Html.ActionLink("Create Role", "CreateRole")
+        </h5>
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="reg_form">
+                <table>
+                    @*<tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RoleName)
+                        </th>
+                        <th></th>
+                    </tr>*@
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RoleName)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "EditRole", new { id = item.RoleId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.RoleId })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

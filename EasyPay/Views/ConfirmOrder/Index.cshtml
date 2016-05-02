@@ -1,0 +1,383 @@
+﻿@*<script src="~/Scripts/jquery-1.2.6.min.js"></script>*@
+@*<script src="~/Scripts/jquery-jtemplates.js"></script>*@
+<script src="~/Scripts/default.js"></script>
+<link href="~/Content/StyleSheet.css" rel="stylesheet" />
+
+@using EasyPay.Models
+@using PagedList;
+@model EasyPay.Models.Order
+@*@{
+        ViewBag.Title = "Index";
+    }
+    <h2>
+        Index</h2>
+    <h3>@ViewBag.Order.ItemCode
+    </h3>*@
+
+@*<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>*@
+<script language="JavaScript">
+    $(document).ready(function () {
+
+        $(".tabs .tab[id^=tab_menu]").click(function () {
+            var curMenu = $(this);
+            $(".tabs .tab[id^=tab_menu]").removeClass("selected");
+            curMenu.addClass("selected");
+
+            var index = curMenu.attr("id").split("tab_menu_")[1];
+            $(".curvedContainer .coup_tabcontent").css("display", "none");
+            $(".curvedContainer #tab_content_" + index).css("display", "block");
+        });
+    });
+</script>
+
+
+<script>
+    $(function () {
+        var moveLeft = 0;
+        var moveDown = 0;
+        $('a.popper').hover(function (e) {
+
+            var target = '#' + ($(this).attr('data-popbox'));
+
+            $(target).show();
+            moveLeft = $(this).outerWidth();
+            moveDown = ($(target).outerHeight() / 2);
+        }, function () {
+            var target = '#' + ($(this).attr('data-popbox'));
+            $(target).hide();
+        });
+
+        $('a.popper').mousemove(function (e) {
+            var target = '#' + ($(this).attr('data-popbox'));
+
+            leftD = e.pageX + parseInt(moveLeft);
+            maxRight = leftD + $(target).outerWidth();
+            windowLeft = $(window).width() - 40;
+            windowRight = 0;
+            maxLeft = e.pageX - (parseInt(moveLeft) + $(target).outerWidth() + 20);
+
+            if (maxRight > windowLeft && maxLeft > windowRight) {
+                leftD = maxLeft;
+            }
+
+            topD = e.pageY - parseInt(moveDown);
+            maxBottom = parseInt(e.pageY + parseInt(moveDown) + 20);
+            windowBottom = parseInt(parseInt($(document).scrollTop()) + parseInt($(window).height()));
+            maxTop = topD;
+            windowTop = parseInt($(document).scrollTop());
+            if (maxBottom > windowBottom) {
+                topD = windowBottom - $(target).outerHeight() - 20;
+            } else if (maxTop < windowTop) {
+                topD = windowTop + 20;
+            }
+
+            $(target).css('top', topD).css('left', leftD);
+        });
+
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var hideWallet = parseInt(@ViewBag.WalletHide);
+        if (hideWallet == 2) {
+            $("#rbWallet").hide();
+            $("#spanWallet").hide();
+            $("#rbOnlinePay").attr('checked', 'checked');
+        }
+    });
+</script>
+<div id="wrapper">
+    <div id="order_title">
+        <h5>
+            Order Summary
+        </h5>
+    </div>
+    <div id="container">
+        @*@using (Html.BeginForm("Pay", "ConfirmOrder", FormMethod.Post, new { @id = "ConfirmOrder_form" }))
+            {*@
+        <div id="order_details">
+            <div id="order1">
+                <div class="mob">
+                    <div class="order_head">
+                        Mobile No:
+                    </div>
+                    <div class="order_value">
+                        @if (ViewData["MobileNumber"] != null)
+                        {
+                            @Html.Display("MobileNumber", ViewData["MobileNumber"])
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => modelItem.ItemCode)
+                        }
+                        @*@Html.DisplayFor(modelItem => modelItem.ItemCode)*@
+                    </div>
+                </div>
+                <div class="operator">
+                    <div class="order_head">
+                        Operator:
+                    </div>
+                    <div class="order_value">
+                        @if (ViewData["Operator"] != null)
+                        {
+                            @Html.Display("Operator", ViewData["Operator"])
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => modelItem.ProviderService.ServiceOperator.OperatorName)
+                        }
+                        @*@Html.DisplayFor(modelItem => modelItem.ProviderService.ServiceOperator.OperatorName)*@
+                    </div>
+                </div>
+                <div class="order_amt">
+                    <div class="order_head">
+                        Amount(Rs.):
+                    </div>
+                    <div class="order_value">
+                        <span class="rechargeAmount">
+                            @if (ViewData["Amount"] != null)
+                            { @Html.TextBox("Amount", ViewData["Amount"])  }
+                            else
+                            { @Html.DisplayFor(modelItem => modelItem.AmountString)  }
+                        </span>
+                        @*@Html.DisplayFor(modelItem => modelItem.AmountString)*@
+                    </div>
+                </div>
+                <div class="total">
+                    <div class="order_head">
+                        Total Payment(Rs.):
+                    </div>
+                    <div class="order_value">@Html.DisplayFor(modelItem => modelItem.AmountString)</div>
+                </div>
+            </div>
+
+            <!--order1-->
+            <div class="order_line" style="display:none;">
+            </div>
+            <div id="order2" style="display:none;">
+
+                <div class="coup" style="display:none;">
+
+                    <div class="order_head">Free coupon selected worth Rs.: </div>
+                    <div class="order_value" id="dvTotalAmount">
+                        <span id="spnTotalCoupenAmount">
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="total_pay">
+
+                    <div class="order_head">Total Payment(Rs.): </div>
+                    <div class="order_value" id="dvTotalAmount">
+
+                        <span id="spnTotalCoupenAmount">
+                        </span>
+                        @Html.TextBoxFor(modelItem => modelItem.CouponAmount, new { id = "couponAmount", style = "display: none;" })
+                        @Html.TextBoxFor(modelItem => modelItem.TotalAmount, new { id = "totalAmount", style = "display: none;" })
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="order_line" style="display:none;">
+            </div>
+            <div id="selected_coup" class="selectedCoupon">
+                <ul id="list" data-role="selectedCoupons">
+                    @*<li>
+                            <div id="dvCoupensAmount">
+                                <a href="#" class="coup_cross"></a>
+                                <img src="images/sd_small.gif" width="35" height="10" /><span>Rs. <span id="coupenAmount"></span></span>
+                            </div>
+                        </li>*@
+                </ul>
+            </div>
+
+            <div class="order_line">
+            </div>
+            @*<input type="submit" style="float: left" class="get_recharge" />*@
+            @*<a href="confirm.html">*@
+            @*<div id="proceed_btn">*@
+            <input id="proceed_btn" type="submit" value="Proceed" />
+            @*</div>*@
+            @*</a>*@
+
+            <div style="float: left">
+                @Html.RadioButton("payment", "Wallet", true, new { @id = "rbWallet", data_Value = "Mode" })
+                <span id='spanWallet'>Use your wallet</span>
+
+
+                @Html.RadioButton("payment", "Online Payment", new { @id = "rbOnlinePay", data_Value = "Mode" })
+                <span>Online Payment</span>
+
+            </div>
+        </div>
+        @*}*@
+    </div>
+
+    <div id="container2" style="display:none;">
+
+        @Html.DropDownList("Category", new List<SelectListItem>()
+                    {
+                        new SelectListItem(){ Text= "All", Value = "All"},
+                        new SelectListItem(){ Text= "Free", Value = "Free"},
+                        new SelectListItem(){ Text= "Paid", Value = "Paid"},
+                    })
+
+        <div class="free_coup">
+            <div class="coup_title">
+                <div class="img1"></div>Pick your<span>Free coupons</span> with this recharge<div class="img2"></div>
+            </div>
+
+        </div>
+
+        <div id="coupon_tabs">
+            <div class="tabscontainer">
+                <div class="tabs">
+                    @{
+                        List<CategoryViewModel> categories = ViewBag.Category;
+                        var tabMenu = "";
+                        int j = 1;
+
+                    }
+                    <div class="tab first selected" data-role="tabbings">
+                        <div class="link" id="coupon">
+                            <div class="icon"></div>
+                            <input type="hidden" data-role="categoryId" id="couponId" value="0" />
+                            <span>All</span>
+                        </div>
+                        <div class="arrow"></div>
+                    </div>
+                    @for (int i = 0; i < categories.Count(); i++)
+                    {
+
+                        tabMenu = "tab_menu_" + j;
+
+                        <div class="tab first" data-role="tabbings">
+                            <div class="link" id="coupon">
+                                <div class="icon"></div>
+                                <input type="hidden" data-role="categoryId" id="couponId" value="@categories[i].CategoryId" />
+                                <span>@categories[i].CategoryName</span>
+                            </div>
+                            <div class="arrow"></div>
+                        </div>
+                        j++;
+                    }
+
+                </div>
+
+                <div class="curvedContainer" style="display:none;">
+                    <div class="coup_tabcontent" id="tab_content_1" style="display:block">
+                        @{
+                            List<Coupon> coupenModel = (List<Coupon>)ViewBag.Coupons;
+                        }
+
+                        <div id="dvCoupens">
+                            @* @Html.Partial("~/Views/ConfirmOrder/_Coupon.cshtml", coupenModel)*@
+                        </div>
+                    </div><!--tab content 1-->
+                </div>
+                @*<a id="PrevPage" class="paging">&laquo; Previous Page</a>
+
+                    <a id="NextPage" class="paging">Next Page &raquo;</a>*@
+                <div class="coup_arrows" style="display:none;">
+                    <a id="PrevPage" class="prev" href="javascript:PrevPage(this)"></a>
+
+                    <a id="NextPage" class="next" href="javascript: NextPage(this)"></a>
+                </div>
+            </div><!--tabs container-->
+        </div><!--coupon_tabs-->
+    </div>
+    <div id="bottom">
+    </div>
+</div>
+
+<script>
+
+
+    var categoryType;
+    var mode;
+    $("#proceed_btn").click("click", function () {
+        debugger;
+
+        // var abc = $("#listCategory").val();
+        // var categoryList = JSON.stringify({ categoryList: abc });
+        //var categoryList = [];
+        //$.each(listCatId, function (id, val) {
+        //    var str = val;
+        //    {
+        //        if (val != ",")
+        //            categoryList.push(str);
+        //    }
+        //});
+
+        //console.log(categoryList);
+        mode = $('input[type="radio"][data-value="Mode"]:checked').val();
+        $.ajax({
+
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            url: '/ConfirmOrder/Pay',
+            type: 'POST',
+            //data: JSON.stringify({ paymentMode: mode, categoryList: categoryList }),
+            data: JSON.stringify({ paymentMode: mode }),
+            //data: {
+            //    categoryList: categoryList, paymentMode: mode
+            //},
+            success: function (data) {
+                debugger;
+                window.location.href = '@Url.Action("Index", "Order")';
+                //debugger;
+                //var div = $("#dvCoupens");
+                //div.html(data);
+            },
+            error: function (error) {
+                debugger;
+                alert('error; ' + eval(error));
+            }
+        });
+    });
+
+
+    $("#Category").change("change", function () {
+        debugger;
+        categoryType = $("#Category").val();
+        getAjax();
+    });
+
+    var currentCategoryId;
+    $(".link").click("click", function () {
+        var current = $(this);
+        currentCategoryId = current.find($('input[type="hidden"][data-role="categoryId"]')).val();
+        var allDivs = $('div[data-role="tabbings"]').removeClass('selected');
+        current.parent().addClass('selected');
+        getAjax();
+
+    });
+
+    function getAjax() {
+        if (currentCategoryId == undefined) {
+            currentCategoryId = 0;
+        }
+        if (categoryType == undefined) {
+            categoryType = "All";
+        }
+        $.ajax({
+            url: "/ConfirmOrder/getCoupons",
+            type: "get",
+            data: { currentCategoryId: currentCategoryId, categoryType: categoryType },
+
+            success: function (data) {
+                debugger;
+                var div = $("#dvCoupens");
+                div.html(data);
+            }
+        });
+    }
+
+
+</script>

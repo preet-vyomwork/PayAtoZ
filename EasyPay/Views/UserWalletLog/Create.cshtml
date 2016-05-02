@@ -1,0 +1,64 @@
+﻿@model EasyPay.Models.UserWalletViewModel
+@{
+    ViewBag.Title = "Create";
+}
+@*<h2>Create</h2>*@
+<div id="wrapper">
+    <div id="login_title">
+        <h5>
+            Create</h5>
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
+
+                    <fieldset>
+                        <legend>UserWallet Information</legend>
+                        <li>
+                            <lable for="name">User Profile</lable>
+                            <div class="editor-field">
+                                @Html.DropDownList("UserProfileId", "-Select-")
+                                @Html.ValidationMessageFor(model => model.UserProfileId)
+                            </div>
+                        </li>
+                        <li>
+                            <lable for="name">Amount</lable>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.UserWalletLog.Amount)
+                                @Html.ValidationMessageFor(model => model.UserWalletLog.Amount)
+                            </div>
+                        </li>
+                      
+                        <li>
+                            <lable for="name">Is Refund</lable>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.UserWalletLog.IsRefund)
+                                @Html.ValidationMessageFor(model => model.UserWalletLog.IsRefund)
+                            </div>
+                        </li>
+                        <li>
+                            <lable for="name">Remarks</lable>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.UserWalletLog.Remarks)
+                                @Html.ValidationMessageFor(model => model.UserWalletLog.Remarks)
+                            </div>
+                        </li>
+                        <p>
+                            <li>
+                                <input type="submit" class="save_btn" />
+                            </li>
+                        </p>
+                    </fieldset>
+                }
+                <div>
+                    @Html.ActionLink("Back to List", "Index", "UserWallet")
+                </div>
+            </div>
+        </div>
+    </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

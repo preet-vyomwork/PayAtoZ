@@ -1,0 +1,73 @@
+﻿@model EasyPay.Models.ServiceOperatorPlan
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div id="wrapper">
+    <div id="login_title">
+        <h5>Create</h5>
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+
+                <h3>Are you sure you want to delete this?</h3>
+                <fieldset>
+                    <legend>ServiceOperatorPlan</legend>
+
+                    <div class="display-label">
+                        @Html.DisplayNameFor(model => model.ServiceOperator.OperatorName)
+                    </div>
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.ServiceOperator.OperatorName)
+                    </div>
+
+                    <div class="display-label">
+                        @Html.DisplayNameFor(model => model.PlanName)
+                    </div>
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.PlanName)
+                    </div>
+
+                    <div class="display-label">
+                        @Html.DisplayNameFor(model => model.Validity)
+                    </div>
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.Validity)
+                    </div>
+
+                    <div class="display-label">
+                        @Html.DisplayNameFor(model => model.Description)
+                    </div>
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.Description)
+                    </div>
+
+                    <div class="display-label">
+                        @Html.DisplayNameFor(model => model.Price)
+                    </div>
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.Price)
+                    </div>
+
+                    <div class="display-label">
+                        @Html.DisplayNameFor(model => model.State.StateName)
+                    </div>
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.State.StateName)
+                    </div>
+                </fieldset>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <p>
+                        <input type="submit" value="Delete" /> |
+                        @Html.ActionLink("Back to List", "Index")
+                    </p>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>

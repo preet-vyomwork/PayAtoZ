@@ -1,0 +1,134 @@
+﻿@using EasyPay.Models
+@model List<EasyPay.Models.Coupon>
+
+@*@model PagedList.IPagedList<EasyPay.Models.Coupon>*@
+@*@using PagedList.Mvc;*@
+
+
+<div class="coupons">
+
+    <ul>
+
+        @*@for (int jf = 0; jf < Model.Count(); jf++)*@
+        @foreach (var coupon in Model)
+        {
+            <li>
+                
+                <div class="coup_top">
+                    <div class="coup_logo"><img src=@Url.Content(@coupon.CouponImagepath).ToString() width="90" height="30" /></div>
+                    <div class="coup_amt">Rs. 300 </div>
+                </div>
+
+                <div class="discount">@coupon.CouponTitle</div>
+
+                <div class="pick">
+                    <div class="pick_amt" id="pick_btn">
+                        <input type="hidden" id="listCategory" />
+                        <input type="hidden" id="categoryId" data-role="categoryId" value="@coupon.CouponId" />
+                        <input type="hidden" id="pick_amt" data-role="couponId" value="@coupon.CouponValue" />
+                        For Rs. @coupon.CouponValue Only
+                    </div>
+                    <div class="pick_btn"><a href="#">Pick</a></div>
+                </div>
+
+                <div class="coup_bot">
+                    <div class="cp_det">
+                        <a href="#" class="popper" data-popbox="pop1">Details</a>
+
+                        <div id="pop1" class="popbox">
+                            <p><h6>@coupon.Url - Rs. 300 OFF</h6></p>
+                            <p>Valid Against minimum bill of Rs. 1499</p>
+                            <p><strong>Terms &amp; Conditions</strong>  <br /> This is an E COUPON delivered to your inbox instantly</p><br />
+                            <p>1. Get Rs.300 discount on any purchase of Rs. 1499 and above made on www.naaptol.com </p>
+                            <p>2. This offer is valid only on naaptol HOT DEALS.</p>
+                            <p>3. Coupon valid till @coupon.ValidityEnd</p><p>  <strong>Valid in cities:   All</strong> </p>
+                        </div>
+
+                    </div><!--coup det-->
+                    <div class="terms">T&amp;C Apply</div>
+
+                </div><!--coup bot-->
+            </li>
+
+        }
+
+    </ul>
+
+</div>
+@*<div class="coup_arrows">
+    <div class="prev"></div>
+    <div class="next"></div>
+</div>*@
+@*<div style="margin-top: 40px; float: right">
+
+    <div>
+        @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount*@
+
+        @*<div>
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.Minimal)
+
+        </div>*@
+    @*</div>
+
+</div>*@
+<script>
+
+    var rechargeAmount = $(".rechargeAmount").text();
+    var tempAmount = 0;
+    var listCategoryId = new Array();
+    $(".pick").click("click", function () {
+        var current = $(this);
+        couponAmount = current.find($('input[type="hidden"][data-role="couponId"]')).val();
+
+        var myData = current.find($('input[type="hidden"][data-role="categoryId"]')).val();
+
+        var imgSource = current.parent().find('img').attr('src');
+        var appendLi = '<div id="dvCoupensAmount" data-role="amt"><input type="hidden" id="tempCouponId" value="' + myData + '" data-role="tempCouponId"><a onclick="removeSelectedCoupon(this);" href="javascript:void(0) data-role="cancle" class="coup_cross"></a><img src="' + imgSource + '" width="35" height="10" /><span  data-amount="couponAmount">' + couponAmount + '</span></div>';
+        $('ul[data-role="selectedCoupons"]').append('<li>' + appendLi + '</li>');
+        totalAmount(couponAmount);
+        debugger;
+
+        
+        listCategoryId.push(myData);
+        $("#listCategory").val(listCategoryId);
+        var listCat = listCategoryId;
+
+    });
+
+    function totalAmount(couponAmount) {
+
+        var totalAmount = 0;
+        var amountTotal = 0;
+        totalAmount = tempAmount + parseInt(couponAmount);
+        amountTotal = totalAmount + parseInt(rechargeAmount);
+        tempAmount = parseInt(totalAmount);
+        $("#totalAmount").val(amountTotal);
+        $("#couponAmount").val(tempAmount);
+        var spnTotalCoupenAmount = $("#spnTotalCoupenAmount");
+        spnTotalCoupenAmount.text(totalAmount);
+    }
+
+    function removeSelectedCoupon(el) {
+        debugger;
+        var current = $(el);
+
+        var myData = current.parent().find($('input[type="hidden"][data-role="tempCouponId"]')).val();
+        listCategoryId.splice(listCategoryId.indexOf(myData), 1);
+        $("#listCategory").val(listCategoryId);
+        
+
+        var cancleAmount = current.parent().find($('span[data-amount="couponAmount"]')).text();
+        current.parent().parent().remove();
+        cancleTotalAmount(cancleAmount);
+    }
+
+    function cancleTotalAmount(cancleAmount) {
+        debugger;
+        var totalAmount = 0;
+        totalAmount = tempAmount - parseInt(cancleAmount);
+        tempAmount = parseInt(totalAmount);
+        var spnTotalCoupenAmount = $("#spnTotalCoupenAmount");
+        spnTotalCoupenAmount.text(totalAmount);
+    }
+</script>

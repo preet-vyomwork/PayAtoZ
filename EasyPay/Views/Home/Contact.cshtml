@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "";
+}
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+    <h2>@ViewBag.Message</h2>
+</hgroup>
+
+<div id="wrapper">
+    <div id="page_container">
+        <div class="page_content">
+            <div id="left_menu">
+                <div class="staticpage-navigation">
+                    <ul>
+                        <li>@Html.ActionLink("About Us", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact Us", "Contact", "Home",new { @class = "active" })</li>
+                        @*<li>@Html.ActionLink("FAQs", "FAQ", "Home")</li>*@
+                        <li>@Html.ActionLink("Terms & Conditions", "TermsCondition", "Home")</li>
+                        <li>@Html.ActionLink("Refund Policy", "Refund", "Home")</li>
+                        <li>@Html.ActionLink("Privacy", "Privacy", "Home")</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="right_content">
+                <h2>
+                    Contact Us
+                </h2>
+                <div class="bot_line">
+                </div>
+                <p>
+                    <h3>
+                        Email</h3>
+                    <span class="label">Support:</span> <span><a href="info@payatoz.com">info@payatoz.com</a></span>
+                </p>
+                @*<p>
+        <span class="label">Marketing:</span>
+        <span><a href="mailto:Marketing@example.com">innovativeideas.solution@gmail.com</a></span>
+    </p>
+    <p>
+        <span class="label">General:</span>
+        <span><a href="mailto:General@example.com">innovativeideas.solution@gmail.com</a></span>
+    </p>*@
+                <h3>
+                    Address</h3>
+                <br />
+                Innovative solutions
+                Sandesh press road,
+                Ahmedabad,380015<p>
+                    <h3>
+                        Phone</h3>
+                    <p>
+                        <span class="label">Primary:</span> <span>9099939132</span>
+                    </p>
+                    <p>
+                        <span class="label">After Hours:</span> <span>9426251148</span>
+                    </p>
+            </div>
+        </div>
+        <!--page content-->
+    </div>
+    <!--container-->
+</div>
+<!--wrapper ends-->

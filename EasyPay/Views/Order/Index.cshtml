@@ -1,0 +1,505 @@
+﻿@model PagedList.IPagedList<EasyPay.Models.Order>
+@using PagedList.Mvc;
+@using EasyPay.Models;
+@using System.Collections.Generic;
+@{
+    ViewBag.Title = "Order History";
+}
+@*<h2>
+    My Orders</h2>*@ @*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".reorderLink").click(function () {
+                var parentDiv = $(this).parents(".myorder_details");
+                var orderID = parentDiv.find(".id_value").text();
+                $.ajax({
+                    url: '/Home/Index',
+                    type: 'POST',
+                    data: { orderId: orderID },
+                    success: function (data) {
+                    },
+                    error: function (data) {
+                    }
+                });
+            });
+        });
+
+    </script>
+    <script type="text/javascript" src="../../Scripts/tabcontent.js"></script>
+    <div id="wrapper">
+        <div id="container">
+            <div id="my_orders_tabs">
+                @{
+                    var thisRole = Roles.GetRolesForUser(System.Web.Security.Membership.GetUser().UserName).FirstOrDefault();
+                }
+                <ul class="tabs" persist="true">
+                    @if (thisRole == "Admin")
+                    {
+                        <li>
+                            <a href="#" rel="view1">
+                                All Orders<br />
+                                <span></span>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="#" rel="view1">
+                                My Orders<br />
+                                <span></span>
+                            </a>
+                        </li>
+                    }
+
+                    <li>
+                        <a href="#" rel="view2">
+                            My Profile<br />
+                            <span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" rel="view3">
+                            My Preference<br />
+                            <span></span>
+                        </a>
+                    </li>
+
+                    @*<li><a href="#" rel="view3">Go Mobile<br />
+                        <span></span></a></li>*@
+                </ul>
+                <div class="tabcontents">
+                    <div id="view1" class="tabcontent">
+                        <div class="myorder_line">
+                            @*<p align="right"><input type="submit" class="search_btn" /></p>*@
+                        </div>
+                        <div id="order_heads">
+                            <div class="date_icon">
+                            </div>
+                            <div class="order_id">
+                                Order ID
+                            </div>
+                            <div class="order_type">
+                                Type
+                            </div>
+                            <div class="order_details">
+                                Order Details
+                            </div>
+                            <div class="order_status">
+                                Status
+                            </div>
+                            @*<div class="more">
+                                More</div>*@
+                        </div>
+                        <!--order heads-->
+                        <div class="myorder_line">
+                        </div>
+                        @foreach (var item in Model)
+                        {
+                            @Html.HiddenFor(modelItem => item.UserProfileId, new { @id = "userId" })
+                            <div class="myorder_details">
+                                <div class="date_value">
+                                    @Html.DisplayFor(modelItem => item.OrderDate, null, new { @id = "thisOrderDate" })
+                                </div>
+                                <div class="id_value" id="divOrderId">
+                                    @Html.DisplayFor(modelItem => item.OrderId)
+                                </div>
+                                <div class="type_value">
+                                    <img src="/@item.ProviderService.ServiceType.ImageUrl" alt="Data Card" width="20" height="29" />
+                                </div>
+                                <div class="details_value">
+                                    <div class="ph">
+                                        @Html.DisplayFor(modelItem => item.ItemCode)
+                                    </div>
+                                    <div class="op_icon">
+                                        <img src="/@item.ProviderService.ServiceOperator.ImageUrl" width="51" height="32" />
+                                    </div>
+                                    <div class="rech_rs">
+                                        @Html.DisplayFor(modelItem => item.AmountString)
+                                    </div>
+                                </div>
+                                <div class="status_value">
+                                    <div class="status_icon">
+                                        <img src="/@item.OrderStatusImage" width="24" height="20" />
+                                    </div>
+                                    <div class="status">
+                                        @Html.DisplayFor(modelItem => item.OrderStatus)
+                                    </div>
+                                </div>
+                                <div>
+                                    @if (thisRole == "Admin" && item.OrderStatus == "pending")
+                                    {
+                                        DateTime start = @item.OrderDate;
+                                        DateTime end = DateTime.Today;
+                                        var diffMonths = (end.Month + end.Year * 12) - (start.Month + start.Year * 12);
+                                        <input id="btnSendMail" type="submit" value="SendMail" onclick="SendMail()" />
+                                        if (diffMonths > 6)
+                                        {
+                                            <input id="btnDelete" type="submit" value="Delete" onclick="DeleteOrder(this)" />
+                                        }
+                                    }
+                                    @if (thisRole == "Admin" && item.OrderStatus == "failed")
+                                    {
+                                        <input id="btnRefund" type="submit" value="Refund" onclick="RefundAmount(this)" />
+                                    }
+
+                                </div>
+
+                                @*<div class="more_value">
+                                        <div class="more_icons">
+                                            <a href="#">
+                                                <img src="images/file.gif" width="41" height="31" /></a><a href="#"><img src="images/repeat.gif"
+                                                    width="32" height="31" /></a></div>
+                                    </div>*@
+                                <div class="more_value">
+                                    <div class="more_icons">
+                                        <a href="#" />@*<img src="images/file.gif" width="41" height="31" alt="File" /></a> <a id="reorderLink"
+                                            class="reorderLink">
+                                            <img src="images/repeat.gif" alt="Reorder" width="32" height="31" /></a>*@
+                                        @Html.ActionLink("Repeat", "Index", "ConfirmOrder", new { orderId = item.OrderId }, new { @class = "imgReOrder" })
+
+                                    </div>
+                                </div>
+                                <div class="myorder_line">
+                                </div>
+                            </div>
+
+                        }
+
+
+                        <div style="margin-top: 40px; float: left">
+
+                            <div>
+                                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                                of @Model.PageCount
+
+                                <div>
+                                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+
+                                </div>
+                            </div>
+
+                        </div>
+                        @* <div class="page_icons">
+                                <div class="prev_arrow">
+                                    <img src="images/left_arrow.png" width="22" height="17" /></div>
+                                <div class="selected_page">
+                                    1</div>
+                                <div>
+                                    2</div>
+                                <div>
+                                    3</div>
+                                <div class="next_arrow">
+                                    <img src="images/rht_arrow.png" width="22" height="17" /></div>
+                            </div>*@
+                    </div>
+                    <!--tab1 content-->
+                    <div id="view2">
+                        @{
+                            EasyPay.Models.UserProfile userProfileModel = ViewBag.UserProfileData;
+                        }
+                        @Html.Partial("_ProfilePartial", userProfileModel)
+                    </div>
+                    <div id="view3">
+                        @*<div id="tabs">*@
+                        <div>
+                            @{
+                                List<UserPreferenceViewModel> userPreferences = ViewBag.UserPreference;
+                            }
+                            <div id="wrapper">
+                                <div id="reg_title">
+                                    <h5>
+                                        &nbsp;
+                                    </h5>
+                                </div>
+
+
+                                @*@foreach (var pref in userPreferences)
+                                {*@
+                                    @*<div>
+                                        <div id="inner_content" style="width: 920px;">
+                                            <div id="reg_form">
+                                                <fieldset>
+
+                                                    <div>
+                                                        <div style="float:right;width:10%;">
+                                                            <a herf=""><img src="~/Images/edit-icon.png" height="10" width="10" /></a>
+                                                        </div>
+                                                        <br />
+                                                        <div style="float:left; font-size:large; width:40%;">
+                                                            @if (pref.ServiceTypeId == 1 || pref.ServiceTypeId == 2)
+                                                            {
+                                                                <p>Mobile Number</p>
+                                                            }
+                                                            else if (pref.ServiceTypeId == 3)
+                                                            {
+                                                                <p>Subscriber Id</p>
+                                                            }
+                                                            else if (pref.ServiceTypeId == 4)
+                                                            {
+                                                                <p>DataCard Number</p>
+                                                            }
+
+                                                        </div>
+                                                        <div>@pref.RechargeNumber</div>
+                                                        <br />
+                                                        <div style="float: left; width: 40%;">
+                                                            @if (pref.ServiceTypeId == 1 || pref.ServiceTypeId == 2 || pref.ServiceTypeId == 4)
+                                                            {
+                                                                <p>Operator</p>
+                                                            }
+                                                            else if (pref.ServiceTypeId == 3)
+                                                            {
+                                                                <p>DTH Operator</p>
+                                                            }
+                                                        </div>
+                                                        <div>@pref.OperatorName</div>
+                                                        <br />
+                                                        <div style="float: left; width: 40%;">
+                                                            <p>Amount</p>
+                                                        </div>
+                                                        <div>@pref.Amount</div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                    @* @pref.Amount <br /><br />*@
+                                    @*@pref.RechargeNumber<br /><br />*@
+                                    @*@pref.ServiceTypeName<br /><br />*@
+                                    @*@pref.OperatorName <br /><br />*@
+                                @*}*@
+
+                                @*<ul class="home_tabs">
+                                        <li><a href="#free"><img src="images/mobi.png" width="28" height="46" alt="Mobile" /><span>Mobile</span></a></li>
+                                        <li><a href="#commercial"><img src="images/dth.png" width="32" height="46" alt="DTH" /><span class="dth">DTH</span></a></li>
+                                        <li><a href="#multidomain"><img src="images/dc.png" width="27" height="46" alt="Data CArd" /><span>Data Card</span></a></li>
+                                    </ul>*@
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- tab "panes" -->
+                    <div class="panes" style="display:none">
+
+                        <div class="description" id="free">
+                            <div class="arrow">&#9660;</div>
+                            @*@using (Html.BeginForm("Pay", "Home", FormMethod.Post, new { @id = "mobile_form" }))
+                                {
+                                    @Html.ValidationSummary(true)
+                                    <div>
+                                        <font size="+1">Your Prepaid mobile no</font>
+                                        @Html.RadioButton("mobileType", ServiceEngine.ServiceType.Mobile, true, new { @id = "prepaid" }) Prepaid
+                                        @Html.RadioButton("mobileType", ServiceEngine.ServiceType.MobilePostpaid, new { @id = "postpaid" }) Postpaid
+                                    </div>
+
+                                    if (ViewData["MobileNumber"] != null)
+                                    {
+                                        @Html.TextBox("MobileNumber", ViewData["MobileNumber"], new { @class = "mobileno" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => model.ItemCode, new { @class = "mobileno" })
+                                    }
+                                    @Html.ValidationMessageFor(model => model.ItemCode)*@
+
+
+                            <ul>
+
+                                <li>
+
+                                    @*<div class="selectParent">
+
+
+                                        @if (ViewData["Operator"] != null)
+                                        {
+                                            @Html.DropDownList("prepaidOperators", null, ViewData["Operator"])
+                                        }
+                                        else
+                                        {
+                                            @Html.DropDownList("prepaidOperators", null, "--Select--", new { onchange = @"var form = document.forms[0];form.action='Home/ServiceOperatorPlans/';" })
+                                        }
+                                        @Html.DropDownList("postpaidOperators", null, "--Select--", new { @id = "postpaidDropDown", style = "display:None", @class = "operators" })
+                                                                                    </div>*@
+                                </li>
+
+                                <li>
+                                    @*@if (ViewData["Amount"] != null)
+                                        {
+                                            @Html.TextBox("Amount", ViewData["Amount"], new { @class = "amt", id = "amtFill" })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(model => model.Amount, new { @class = "amt", id = "amtFill" })
+                                        }
+
+                                        @Html.ValidationMessageFor(model => model.Amount)*@
+                                </li>
+
+
+                            </ul>
+
+                            @*@Html.Hidden("type", ServiceEngine.ServiceType.Mobile);*@
+
+                            <input type="submit" class="get_recharge" />
+                            @*}*@
+
+                        </div>
+
+                        <div class="description" id="commercial">
+                            <div class="arrow">&#9660;</div>
+                            <h3>DTH Service Provider no</h3>
+                            @*@using (Html.BeginForm("Pay", "Home", FormMethod.Post, new { @id = "mobile_form" }))
+                                {
+                                    @Html.ValidationSummary(true)
+                                    @Html.TextBoxFor(model => model.ItemCode, new { @class = "mobileno" })
+                                    @Html.ValidationMessageFor(model => model.ItemCode)
+                                    <ul>
+
+                                        <li>
+                                            <div class="selectParent">
+                                                @Html.DropDownList("dthOperators", null, "--Select--", new { @class = "operators" })
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            @Html.TextBoxFor(model => model.Amount, new { @class = "amt" })
+                                            @Html.ValidationMessageFor(model => model.Amount)
+                                        </li>
+
+                                    </ul>
+
+
+                                    @Html.Hidden("type", ServiceEngine.ServiceType.DTH)
+                                    <input type="submit" class="get_recharge" />
+
+
+
+                                }*@
+                        </div>
+
+
+                        <div class="description" id="multidomain">
+                            <div class="arrow">&#9660;</div>
+                            <h3>Your Prepaid Data Card no</h3>
+                            @*@using (Html.BeginForm("Pay", "Home", FormMethod.Post, new { @id = "mobile_form" }))
+                                {
+                                    @Html.ValidationSummary(true)
+                                    @Html.TextBoxFor(model => model.ItemCode, new { @class = "mobileno" })
+                                    @Html.ValidationMessageFor(model => model.ItemCode)
+
+                                    <ul>
+
+                                        <li>
+                                            <div class="selectParent">
+                                                @Html.DropDownList("dataCardOperators", null, "--Select--", new { @class = "operators" })
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            @Html.TextBoxFor(model => model.Amount, new { @class = "amt" })
+                                            @Html.ValidationMessageFor(model => model.Amount)
+                                        </li>
+
+                                    </ul>
+                                    @Html.Hidden("type", ServiceEngine.ServiceType.DataCard)
+                                    <input type="submit" class="get_recharge" />
+
+
+                                }*@
+                        </div>
+                        <label>
+
+
+
+                        </label>
+
+                    </div>
+                    @*</div>*@
+                    @*</div>*@
+                    @*</div>*@
+                    @*</div>*@
+                </div>
+            </div>
+            <script>
+                var user;
+                userProfileId = $("#userId").val();
+                function SendMail() {
+                    debugger;
+                    $.ajax({
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        url: '/Order/SendMail',
+                        type: 'Post',
+                        data: JSON.stringify({ user: userProfileId }),
+                        success: function (data) {
+                        }
+                    })
+                }
+                var order = $(current).parent().parent().find("#divOrderId").text().trim();
+                function DeleteOrder(current) {
+                    //var current = $(this);
+
+                    debugger;
+                    $.ajax({
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        url: '/Order/DeleteOrder',
+                        type: 'Post',
+                        data: JSON.stringify({ orderId: order }),
+                        success: function (data) {
+                        }
+                    })
+                }
+                function RefundAmount(amount) {
+                    debugger;
+                    $.ajax({
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        url: '/Order/RefundAmount',
+                        type: 'Post',
+                        data: JSON.stringify({ orderId: order }),
+                        success: function (data) {
+                        }
+                    })
+                }
+            </script>
+            <script type="text/javascript">
+                $(document).ready(
+                function () {
+                    $("#prepaid").click(
+                        function () {
+                            $("#prepaidDropDown").show();
+                            $("#postpaidDropDown").hide();
+                        }
+                    );
+                    $("#postpaid").click(
+                        function () {
+                            $("#postpaidDropDown").show();
+                            $("#prepaidDropDown").hide();
+                        }
+                    );
+                    $("#tabs").tabs("div.panes > div");
+
+                    var serviceType = $("#hdnServiceType").val();
+
+                    if (serviceType == 1) {
+                        $("#tabs").data("tabs").click('#free');
+                    }
+                    else if (serviceType == 2) {
+                        $('#postpaid').prop('checked', true);
+                        $("#tabs").data("tabs").click('#free');
+                    }
+                    else if (serviceType == 3) {
+                        $("#tabs").data("tabs").click('#commercial');
+                    }
+                    else if (serviceType == 4) {
+                        $("#tabs").data("tabs").click('#multidomain');
+                    }
+                }
+                );
+            </script>

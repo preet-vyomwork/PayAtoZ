@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - PayAtoZ</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="../../Content/style.css" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Content/jquery-ui.css")
+    @Styles.Render("~/Content/css")
+    <meta name="viewport" content="width=device-width" />
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-1.8.3.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery-ui-1.10.0.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+  m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-40264000-1', 'payatoz.com');
+        ga('send', 'pageview');
+
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <div id="logo">
+                <h1>
+                    @*<a href='@Url.Action("Index", "Home")' >*@
+                    <img src="../../images/logo.png" alt="Image" />@*</a>*@
+                </h1>
+            </div>
+            <div id="links">
+                <div id="top_links">
+                    <ul>
+                        @Html.Partial("_LoginPartial")
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        @*<li>@Html.ActionLink("Help", "Index", "ServiceType")</li>*@
+                        @{ if (HttpContext.Current.User.Identity.IsAuthenticated && HttpContext.Current.User.IsInRole("Admin"))
+                           {
+                            <li>@Html.ActionLink("Service Type", "Index", "ServiceType")</li>
+                            <li>@Html.ActionLink("Service Operator", "Index", "ServiceOperator")</li>
+                            <li>@Html.ActionLink("Service", "Index", "Service")</li>
+                            <li>@Html.ActionLink("Admin Profile", "Administration", "Home")</li>
+                           }
+                        }
+                        @{ if (HttpContext.Current.User.Identity.IsAuthenticated)
+                           {
+                            <li>@Html.ActionLink("Order", "Index", "Order")</li>
+                           }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="body">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @RenderSection("scripts", required: false)
+    <div id="footer">
+        <div id="footer_content">
+            <div id="footer_text">
+                <h4>
+                    Online Recharge with PayA2Z
+                    <div id="top_mail">
+                    </div>
+                </h4>
+                <p>
+                    Online Mobile Recharge solution.</p>
+            </div>
+            <!--footer-text-->
+            <div id="footer_links">
+                <ul>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About Us", "About", "Home")</li>
+                    <li><a href="faq.html">FAQs</a></li>
+                    <li><a href="terms.html">Terms &amp; Conditions</a></li>
+                    <li class="no_line"><a href="contactus.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <!--footer links-->
+            <div class="copyright">
+                <p>
+                    &copy;2013 PayA2z.com. All Rights Reserved.</p>
+            </div>
+        </div>
+        <!--footer content-->
+    </div>
+</body>
+</html>

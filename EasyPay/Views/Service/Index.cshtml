@@ -1,0 +1,100 @@
+﻿@model IEnumerable<EasyPay.Models.ProviderService>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<h2>Index</h2>*@
+<div id="wrapper">
+    <div id="login_title">
+      <h5>Index</h5> 
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+
+<p>
+
+    @Html.ActionLink("Create New", "Create")
+   
+</p>
+<table>
+    <tr>
+        <td>
+        <li>
+            @Html.DisplayNameFor(model => model.Provider.ProviderName)
+           
+            </li>
+        </td>
+        <td>
+        <li>
+            @Html.DisplayNameFor(model => model.ServiceType.ServiceTypeName)
+            </li>
+        </td>
+        <td>
+        <li>
+            @Html.DisplayNameFor(model => model.ServiceOperator.OperatorName)
+            </li>
+        </td>
+        <td>
+        <li>
+            @Html.DisplayNameFor(model => model.Comission)
+           </li> 
+        </td>
+        <td>
+        <li>
+            @Html.DisplayNameFor(model => model.Format)
+           </li> 
+        </td>
+        <td></td>
+    </tr>
+    
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+        <li>
+            @Html.DisplayFor(modelItem => item.Provider.ProviderName)
+            
+        <li>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProviderServiceId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProviderServiceId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProviderServiceId })
+         </li>   
+        </li>
+        </td>
+        <td>
+        <li>
+            @Html.DisplayFor(modelItem => item.ServiceType.ServiceTypeName)
+            
+          </li>  
+        </td>
+        <td>
+        <li>
+            @Html.DisplayFor(modelItem => item.ServiceOperator.OperatorName)
+            </li>
+        </td>
+        <td>
+        <li>
+            @Html.DisplayFor(modelItem => item.Comission)
+            </li>
+        </td>
+        <td>
+        <li>
+            @Html.DisplayFor(modelItem => item.Format)
+            </li>
+        </td>
+        @*<td>
+        
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProviderServiceId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProviderServiceId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProviderServiceId })
+            
+        </td>*@
+    </tr>
+}
+
+</table>
+</div>
+    </div>
+    </div>

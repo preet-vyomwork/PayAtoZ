@@ -1,0 +1,50 @@
+﻿@model EasyPay.Models.UserWalletViewModel
+@{
+    ViewBag.Title = "Response";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<fieldset>
+    <legend>User Wallet</legend>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.UserWalletLog.UserProfile.UserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserWalletLog.UserProfile.UserName)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.UserWalletLog.Amount)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserWalletLog.Amount)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.UserWallet.Balance)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserWallet.Balance)
+    </div>
+    <div class="display-label">
+        @Html.Label("Transaction Status")
+    </div>
+    <div class="display-field">
+        @if (@Model.UserWalletLog.Status == 0)
+        {
+            @Html.Label("Pending")
+        }
+        else if (@Model.UserWalletLog.Status == 1)
+        {
+            @Html.Label("InProgress") 
+        }
+        else if (@Model.UserWalletLog.Status == 2)
+        {
+            @Html.Label("Failed") 
+        }
+        else
+        {
+            @Html.Label("Success")
+        }
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Back to List", "Index", new { id = Model.UserProfileId })
+</p>

@@ -1,0 +1,85 @@
+﻿@model EasyPay.Models.ProviderService
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@*<h2>Delete</h2>*@
+<div id="wrapper">
+    <div id="login_title">
+      <h5>Delete</h5> 
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+<li>
+    <legend>ProviderService</legend>
+    </li>
+
+    <div class="display-label">
+    <li>
+         @Html.DisplayNameFor(model => model.Provider.ProviderName)
+         </li>
+    </div>
+    <div class="display-field">
+    <li>
+        @Html.DisplayFor(model => model.Provider.ProviderName)
+        </li>
+    </div>
+
+    <div class="display-label">
+    <li>
+         @Html.DisplayNameFor(model => model.ServiceType.ServiceTypeName)
+         </li>
+    </div>
+    <div class="display-field">
+    <li>
+        @Html.DisplayFor(model => model.ServiceType.ServiceTypeName)
+        </li>
+    </div>
+
+    <div class="display-label">
+    <li>
+         @Html.DisplayNameFor(model => model.ServiceOperator.OperatorName)
+         </li>
+    </div>
+    <div class="display-field">
+    <li>
+        @Html.DisplayFor(model => model.ServiceOperator.OperatorName)
+        </li>
+    </div>
+
+    <div class="display-label">
+    <li>
+         @Html.DisplayNameFor(model => model.Comission)
+         </li>
+    </div>
+    <div class="display-field">
+    <li>
+        @Html.DisplayFor(model => model.Comission)
+        </li>
+    </div>
+
+    <div class="display-label">
+    <li>
+         @Html.DisplayNameFor(model => model.Format)
+         </li>
+    </div>
+    <div class="display-field">
+    <li>
+        @Html.DisplayFor(model => model.Format)
+        </li>
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" class="go_btn"/> 
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+ }
+    </div>
+    </div>
+    </div>

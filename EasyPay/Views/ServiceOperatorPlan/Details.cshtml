@@ -1,0 +1,69 @@
+﻿@model EasyPay.Models.ServiceOperatorPlan
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div id="wrapper">
+    <div id="login_title">
+        <h5>Create</h5>
+    </div>
+    <div id="container">
+        <div id="inner_content">
+            <div id="login_form">
+
+                <fieldset>
+                    <legend>ServiceOperatorPlan</legend>
+
+                    <div class="display-label">
+                        @Html.DisplayNameFor(model => model.ServiceOperator.OperatorName)
+                    </div>
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.ServiceOperator.OperatorName)
+                    </div>
+
+                    <div class="display-label">
+                        @Html.DisplayNameFor(model => model.PlanName)
+                    </div>
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.PlanName)
+                    </div>
+
+                    <div class="display-label">
+                        @Html.DisplayNameFor(model => model.Validity)
+                    </div>
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.Validity)
+                    </div>
+
+                    <div class="display-label">
+                        @Html.DisplayNameFor(model => model.Description)
+                    </div>
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.Description)
+                    </div>
+
+                    <div class="display-label">
+                        @Html.DisplayNameFor(model => model.Price)
+                    </div>
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.Price)
+                    </div>
+
+                    <div class="display-label">
+                        @Html.DisplayNameFor(model => model.State.StateName)
+                    </div>
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.State.StateName)
+                    </div>
+                </fieldset>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.ServiceOperatorPlanId }) |
+                    @Html.ActionLink("Back to List", "Index")
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</div>

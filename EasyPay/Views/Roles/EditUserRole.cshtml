@@ -1,0 +1,96 @@
+﻿@model EasyPay.Models.UserRoleViewModel
+
+@*@{
+    ViewBag.Title = "EditUserRole";
+}
+
+<h2>EditUserRole</h2>*@
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="wrapper">
+        <div id="reg_title">
+            <h5>
+                Edit | @Html.ActionLink("Back to List", "Index")
+            </h5>
+        </div>
+        <div id="container">
+            <div id="inner_content">
+                <div id="reg_form">
+                    <fieldset>
+                       
+                         
+                            @*@Html.LabelFor(model => model.UserProfileId)*@
+                         
+                         
+                            @Html.HiddenFor(model => model.UserProfileId)
+                            @Html.ValidationMessageFor(model => model.UserProfileId)
+                         
+
+                         
+                            @Html.LabelFor(model => model.UserName)
+                         
+                         
+                            @Html.TextBoxFor(model => model.UserName)
+                            @Html.ValidationMessageFor(model => model.UserName)
+                         
+
+                         
+                            @Html.LabelFor(model => model.Age)
+                         
+                         
+                            @Html.TextBoxFor(model => model.Age)
+                            @Html.ValidationMessageFor(model => model.Age)
+                         
+
+                         
+                            @Html.LabelFor(model => model.Address)
+                         
+                         
+                            @Html.TextAreaFor(model => model.Address)
+                            @Html.ValidationMessageFor(model => model.Address)
+                         
+
+                         
+                            @Html.LabelFor(model => model.Email)
+                         
+                         
+                            @Html.TextBoxFor(model => model.Email)
+                            @Html.ValidationMessageFor(model => model.Email)
+                         
+
+                         
+                            @Html.LabelFor(model => model.RoleName)
+                         
+                         
+                            @Html.DropDownListFor(model => model.RoleName, (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...", new { @style = "width: 270px;height: 40px;" })
+                            @Html.ValidationMessageFor(model => model.RoleName)
+                         
+
+                         
+                            @*@Html.LabelFor(model => model.RoleId)*@
+                         
+                         
+                            @Html.HiddenFor(model => model.RoleId)
+                            @Html.ValidationMessageFor(model => model.RoleId)
+                         
+
+                        <p>
+                            <input type="submit" value="Save" class="reg_sub" />
+                        </p>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

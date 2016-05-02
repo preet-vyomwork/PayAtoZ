@@ -1,0 +1,49 @@
+﻿@if (Request.IsAuthenticated)
+{
+    
+    <div id="top_links2">
+        <ul>
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li> @Html.ActionLink("Hello,"  +User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
+            </li>
+            @* <li>@Html.Partial("_LoginPartial")</li>*@
+            @{ if (HttpContext.Current.User.Identity.IsAuthenticated)
+               {
+                <li>@Html.ActionLink("My Account", "Index", "Order")</li>
+                <li>@Html.ActionLink("My Wallet", "Wallet", "UserWallet")</li>
+               }
+            }
+            @*<li>@Html.ActionLink("Help", "Index", "ServiceType")</li>*@ @* @{ if (HttpContext.Current.User.Identity.IsAuthenticated && HttpContext.Current.User.IsInRole("Admin"))
+                           {
+                            <li>@Html.ActionLink("Service Type", "Index", "ServiceType")</li>
+                            <li>@Html.ActionLink("Service Operator", "Index", "ServiceOperator")</li>
+                            <li>@Html.ActionLink("Service", "Index", "Service")</li>
+                            <li>@Html.ActionLink("Admin Profile", "Administration", "Home")</li>
+                           }
+                        }
+                        @{ if (HttpContext.Current.User.Identity.IsAuthenticated)
+                           {
+                            <li>@Html.ActionLink("Order", "Index", "Order")</li>
+                           }
+                        }*@
+            <li>
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                }</li>
+        </ul>
+    </div>
+}
+else
+{
+    <div id="top_links">
+        <ul>
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
+            <li>@Html.ActionLink("Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        </ul>
+    </div>
+           
+    
+}

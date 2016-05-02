@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "ConfirmSuccess";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="wrapper">
+    <div id="header">
+        <h2> 
+            Successfully Confirmed</h2>
+    </div>
+    <div id="container">
+        Hi @ViewBag.UserName,<br />
+        <br />
+        You are successfully registered with our application.
+        <br />
+        <div>
+            Now you can continue with this application. @Html.ActionLink("Home", "Index", "Home")</div>
+    </div>
+</div>

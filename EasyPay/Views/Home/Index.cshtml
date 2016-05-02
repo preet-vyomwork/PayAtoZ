@@ -1,0 +1,741 @@
+﻿@using EasyPay.Models;
+@using System.Collections.Generic;
+@model EasyPay.Models.Order
+@{
+    ViewBag.Title = "Pay More Save More";
+}
+<script src="~/Scripts/modalPopLite.js"></script>
+<link href="~/Content/modalPopLite.css" rel="stylesheet" />
+
+<style>
+    #continue, #skip {
+        border: solid 1px;
+        border-radius: 5px;
+        padding: 4px 7px 2px 4px;
+        font-weight: bold;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $('.popup').modalPopLite({
+            openButton: '.rechargePreference', closeButton: '#close-btn'
+        });
+    });
+    $(document).ready(function () {
+        $('.popupContinue').on('click', function () {
+            debugger;
+            alert("in countinue");
+            $('#hdnIsSkip').val("No");
+            var Pref = $('#hdnIsSkip').val();
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                url: '/Home/SavePreference',
+                type: 'Post',
+                data: JSON.stringify({ preference: Pref }),
+                success: function (data) {
+                }
+            })
+        });
+        $('.popupSkip').on('click', function () {
+            debugger;
+            alert("in skip");
+            $('#hdnIsSkip').val("Yes");
+            var Pref = $('#hdnIsSkip').val();
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                url: '/Home/SavePreference',
+                type: 'Post',
+                data: JSON.stringify({ preference: Pref }),
+                success: function (data) {
+                }
+            })
+
+        });
+    });
+</script>
+
+<script type="text/javascript">
+
+    this.randomtip = function () {
+
+        var pause = 4000; // define the pause for each tip (in milliseconds)
+        var length = $("#tips li").length;
+        var temp = -1;
+
+        this.getRan = function () {
+            // get the random number
+            var ran = Math.floor(Math.random() * length) + 1;
+            return ran;
+        };
+        this.show = function () {
+            var ran = getRan();
+            // to avoid repeating
+            while (ran == temp) {
+                ran = getRan();
+            };
+            temp = ran;
+            $("#tips li").hide();
+            $("#tips li:nth-child(" + ran + ")").fadeIn("fast");
+        };
+
+        show(); setInterval(show, pause);
+
+    };
+
+    $(document).ready(function () {
+        randomtip();
+    });
+
+</script>
+<script type="text/javascript">
+    $(document).ready(
+    function () {
+        var servTyp;
+        $("#prepaid").click(
+            function () {
+                servTyp = 1;
+                $("#prepaidDropDown").show();
+                $("#postpaidDropDown").hide();
+            }
+        );
+        $("#postpaid").click(
+            function () {
+                servTyp = 2;
+                $("#postpaidDropDown").show();
+                $("#prepaidDropDown").hide();
+            }
+        );
+        $("#tabs").tabs("div.panes > div");
+
+        var serviceType = $("#hdnServiceType").val();
+
+        if (serviceType == 1) {
+            $("#tabs").data("tabs").click('#free');
+        }
+        else if (serviceType == 2) {
+            $('#postpaid').prop('checked', true);
+            $("#tabs").data("tabs").click('#free');
+        }
+        else if (serviceType == 3) {
+            $("#tabs").data("tabs").click('#commercial');
+        }
+        else if (serviceType == 4) {
+            $("#tabs").data("tabs").click('#multidomain');
+        }
+    }
+    );
+</script>
+
+<div id="wrapper">
+
+    <div id="main_tabs">
+
+        <div id="tabs">
+            @{
+                EasyPay.Models.EasyPayContext db = new EasyPay.Models.EasyPayContext();
+                var thisUser = User.Identity.Name;
+                bool mobilePrefFlag = false;
+                bool dthPrefFlag = false;
+               // bool dataCardPrefFlag = false;
+                var pref = db.UserProfiles.Where(u => u.UserName == thisUser).FirstOrDefault();
+                if (thisUser != null && thisUser != "")
+                {
+                    var userPrefs = db.Preferences.Where(p => p.UserProfileId == pref.UserProfileId).ToList();
+                    foreach (var userPref in userPrefs)
+                    {
+                        if (userPref.ServiceTypeId == 1 || userPref.ServiceTypeId == 2)
+                        {
+                            mobilePrefFlag = true;
+                        }
+
+                        if (userPref.ServiceTypeId == 3)
+                        {
+                            dthPrefFlag = true;
+                        }
+                        if (userPref.ServiceTypeId == 4)
+                        {
+                           // dataCardPrefFlag = true;
+                        }
+                    }
+                }
+                List<UserPreference> UserPreferenceList = (List<UserPreference>)ViewData["UserPreferenceList"];
+                int count = 0;
+            }
+
+            <ul class="home_tabs">
+                <li><a href="#free"><img src="images/mobi.png" width="28" height="46" alt="Mobile" /><span>Mobile</span></a></li>
+                <li><a href="#commercial"><img src="images/dth.png" width="32" height="46" alt="DTH" /><span class="dth">DTH</span></a></li>
+                <li><a href="#multidomain"><img src="images/dc.png" width="27" height="46" alt="Data CArd" /><span>Data Card</span></a></li>
+            </ul>
+
+            <!-- tab "panes" -->
+            <div class="panes">
+                <div class="description" id="free">
+                    <div class="arrow">&#9660;</div>
+
+                    @using (Html.BeginForm("Pay", "Home", FormMethod.Post, new { @id = "mobile_form" }))
+                    {
+                        count = 0;
+                        @Html.HiddenFor(m => m.UserProfileId, new { @id = "hdnUserId" })
+                        @Html.HiddenFor(m => m.UserProfile.IsSkip, new { @id = "hdnIsSkip" })
+
+                        @Html.ValidationSummary(true)
+                        <div>
+                            <font size="+1">Your Prepaid mobile no</font>
+                            @Html.RadioButton("mobileType", ServiceEngine.ServiceType.Mobile, true, new { @id = "prepaid" }) Prepaid
+                            @Html.RadioButton("mobileType", ServiceEngine.ServiceType.MobilePostpaid, new { @id = "postpaid" }) Postpaid
+                        </div>
+                        if (UserPreferenceList != null && UserPreferenceList.Count() > 0)
+                        {
+                            for (int i = 0; i < UserPreferenceList.Count(); i++)
+                            {
+                                if (UserPreferenceList[i].ServiceTypeId == 1 || UserPreferenceList[i].ServiceTypeId == 2)
+                                {
+                                    count++;
+                                    if (UserPreferenceList[i].RechargeNumber != null)
+                                    {
+                                        @Html.TextBox("MobileNumber", UserPreferenceList[i].RechargeNumber, new { @class = "mobileno", id = "mobile" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => model.ItemCode, new { @class = "mobileno", id = "mobile" })
+                                    }
+
+                                    @Html.ValidationMessageFor(model => model.ItemCode)
+
+                                    <ul>
+                                        <li>
+                                            <div class="selectParent">
+                                                @*@if (UserPreferenceList[i].OperatorName != null)
+                                                {*@
+                                                    @Html.DropDownList("prepaidOperators", null, UserPreferenceList[i].OperatorName)
+                                                @*}*@
+                                                @*else
+                                                {
+                                                  //  @Html.DropDownList("prepaidOperators", null, "--Select--", new { onchange = @"var form = document.forms[0];form.action='Home/ServiceOperatorPlans/';" })
+                                                }*@
+                                                @Html.DropDownList("postpaidOperators", null, "--Select--", new { @id = "postpaidDropDown", style = "display:None", @class = "operators" })
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            @if (UserPreferenceList[i].Amount != null)
+                                            {
+                                                @Html.TextBox("Amount", UserPreferenceList[i].Amount, new { @class = "amt", id = "amtFill" })
+                                            }
+                                            else
+                                            {
+                                                @Html.TextBoxFor(model => model.Amount, new { @class = "amt", id = "amtFill" })
+                                            }
+
+                                            @Html.ValidationMessageFor(model => model.Amount)
+                                        </li>
+                                    </ul>
+                                            break;
+                                }
+                            }
+                        }
+                        if (count == 0)
+                        {
+                            @Html.TextBoxFor(model => model.ItemCode, new { @class = "mobileno", id = "mobile" })
+                            @Html.ValidationMessageFor(model => model.ItemCode)
+                            <ul>
+                                <li>
+                                    <div class="selectParent">
+                                       @*@Html.DropDownList("prepaidOperators", null, "--Select--", new { onchange = @"var form = document.forms[0];form.action='Home/ServiceOperatorPlans/';" })*@
+                                        @Html.DropDownList("prepaidOperators", null, "--Select--", new { @id = "prepaidDropDown", @class = "operators" })
+                                        @Html.DropDownList("postpaidOperators", null, "--Select--", new { @id = "postpaidDropDown", style = "display:None", @class = "operators" })
+                                    </div>
+                                </li>
+                                <li>
+                                    @Html.TextBoxFor(model => model.Amount, new { @class = "amt", id = "amtFill" })
+                                    @Html.ValidationMessageFor(model => model.Amount)
+                                </li>
+                            </ul>
+                        }
+                        @Html.Hidden("type", ServiceEngine.ServiceType.Mobile);
+
+                        @Html.Hidden("mobileService", new { @value = ViewBag.Moblie, @id = "hdnServiceTypeMobile", data_value = "services" })
+                        
+                        <input type="submit" class="get_recharge" />@*</div>*@
+                        //if (thisUser != null && thisUser != "")
+                        //{
+                            //var userPref = db.Preferences.Where(p => p.UserProfileId == pref.UserProfileId && (p.ServiceTypeId == 1 || p.ServiceTypeId == 2)).FirstOrDefault();
+                            @*if (!mobilePrefFlag)
+                            {
+
+                                <div id="clicker" class="rechargePreference"><input type="submit" class="get_recharge" /></div>
+                                <div id="popup-wrapper" class="popup" style="background-color: #ccc; padding: 5px 7px 5px 5px;">
+                                    <p style="float:right">
+                                        <a id="close-btn" href="#">
+                                            <img src="~/Images/windows_close_program.png" width="20" height="20" />
+                                        </a>
+                                    </p>
+                                    <br />
+                                    <center>
+                                        <p>
+                                            Do you want to set it as your default preference?
+                                        </p>
+                                        <br /><br />
+                                        <input type="submit" id="continue" class="popupContinue" value="Yes,Continue" style="" />
+                                        &nbsp;&nbsp;&nbsp;<input type="submit" id="skip" class="popupSkip" value="Skip" />
+                                    </center>
+                                    <br />
+                                </div>
+                            }
+                            else
+                            {
+                                <input type="submit" class="get_recharge" />
+                            }*@
+                        //}
+                        //else
+                        //{
+                        //    <input type="submit" class="get_recharge" />
+                        //}
+                    }
+
+                </div>
+
+                <div class="description" id="commercial">
+                    <div class="arrow">&#9660;</div>
+                    <h3>DTH Service Provider no</h3>
+                    @using (Html.BeginForm("Pay", "Home", FormMethod.Post, new { @id = "mobile_form" }))
+                    {
+                        count = 0;
+                        @Html.Hidden("dthService", new { @value = ViewBag.DTH, @id = "serviceTypeDTH", data_value = "services" })
+                        @Html.ValidationSummary(true)
+
+                        if (UserPreferenceList != null && UserPreferenceList.Count() > 0)
+                        {
+                            for (int i = 0; i < UserPreferenceList.Count(); i++)
+                            {
+                                if (UserPreferenceList[i].ServiceTypeId == 3)
+                                {
+                                    count++;
+                                    if (UserPreferenceList[i].RechargeNumber != null)
+                                    {
+                                        @Html.TextBox("DTHNumber", UserPreferenceList[i].RechargeNumber, new { @class = "mobileno", id = "mobile" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => model.ItemCode, new { @class = "mobileno" })
+                                    }
+                                    @Html.ValidationMessageFor(model => model.ItemCode)
+
+                                    <ul>
+                                        <li>
+                                            <div class="selectParent">
+
+                                                @if (UserPreferenceList[i].OperatorName != null)
+                                                {
+                                                    @Html.DropDownList("dthOperators", null, UserPreferenceList[i].OperatorName)
+                                                }
+                                                else
+                                                {
+                                                    @Html.DropDownList("dthOperators", null, "--Select--", new { @class = "operators" })
+                                                }
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            @if (UserPreferenceList[i].Amount != null)
+                                            {
+                                                @Html.TextBox("Amount", UserPreferenceList[i].Amount, new { @class = "amt", id = "amtFill" })
+                                            }
+                                            else
+                                            {
+                                                @Html.TextBoxFor(model => model.Amount, new { @class = "amt" })
+                                            }
+                                            @Html.ValidationMessageFor(model => model.Amount)
+                                        </li>
+
+                                    </ul>
+                                            break;
+                                }
+                            }
+                        }
+                        if (count == 0)
+                        {
+                            @Html.TextBoxFor(model => model.ItemCode, new { @class = "mobileno" })
+                            @Html.ValidationMessageFor(model => model.ItemCode)
+
+                            <ul>
+                                <li>
+                                    <div class="selectParent">
+                                        @Html.DropDownList("dthOperators", null, "--Select--", new { @class = "operators" })
+                                        }
+                                    </div>
+                                </li>
+
+                                <li>
+                                    @Html.TextBoxFor(model => model.Amount, new { @class = "amt" })
+                                    @Html.ValidationMessageFor(model => model.Amount)
+                                </li>
+                            </ul>
+                        }
+                        @Html.Hidden("type", ServiceEngine.ServiceType.DTH, new { @id = "dth" })
+                        <input type="submit" class="get_recharge" />
+                        @*<div id="clicker" class="rechargePreference"><input type="submit" class="get_recharge" /></div>*@
+
+                        //if (thisUser != null && thisUser != "")
+                        //{
+                        //    var userPref = db.Preferences.Where(p => p.UserProfileId == pref.UserProfileId && p.ServiceTypeId == 3).FirstOrDefault();
+                            @*if (!dthPrefFlag)
+                            {
+
+                                <div id="clicker" class="rechargePreference"><input type="submit" class="get_recharge" /></div>
+                                <div id="popup-wrapper" style="background-color: #ccc; padding: 5px 7px 5px 5px;">
+                                    <p style="float:right">
+                                        <a id="close-btn" href="#">
+                                            <img src="~/Images/windows_close_program.png" width="20" height="20" />
+                                        </a>
+                                    </p>
+                                    <br />
+                                    <center>
+                                        <p>
+                                            Do you want to set it as your default preference?
+                                        </p>
+                                        <br /><br />
+                                        <input type="submit" id="continue" value="Yes,Continue" style="" />
+                                        &nbsp;&nbsp;&nbsp;<input type="submit" id="skip" value="Skip" />
+                                    </center>
+                                    <br />
+                                </div>
+                            }
+                            else
+                            {
+                                <input type="submit" class="get_recharge" />
+                            }*@
+                       // }
+                        //else
+                        //{
+                        //    <input type="submit" class="get_recharge" />
+                        //}
+
+                    }
+                </div>
+
+                <div class="description" id="multidomain">
+                    <div class="arrow">&#9660;</div>
+                    <h3>Your Prepaid Data Card no</h3>
+                    @using (Html.BeginForm("Pay", "Home", FormMethod.Post, new { @id = "mobile_form" }))
+                    {
+                        count = 0;
+                        @Html.Hidden("dataCardService", new { @value = ViewBag.DataCard, @id = "serviceTypeDataCard", data_value = "services" })
+                        @Html.ValidationSummary(true)
+                        @*@Html.TextBoxFor(model => model.ItemCode, new { @class = "mobileno" })*@
+                        @Html.ValidationMessageFor(model => model.ItemCode)
+                        if (UserPreferenceList != null && UserPreferenceList.Count() > 0)
+                        {
+                            for (int i = 0; i < UserPreferenceList.Count(); i++)
+                            {
+                                if (UserPreferenceList[i].ServiceTypeId == 4)
+                                {
+                                    count++;
+                                    if (UserPreferenceList[i].RechargeNumber != null)
+                                    {
+                                        @*@Html.TextBox("MobileNumber", ViewData["MobileNumber"], new { @class = "mobileno", id = "mobile" })*@
+                                        @Html.TextBox("DataCardNumber", UserPreferenceList[i].RechargeNumber, new { @class = "mobileno", id = "mobile" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => model.ItemCode, new { @class = "mobileno" })
+                                        @*@Html.TextBoxFor(model => model.ItemCode, new { @class = "mobileno", id = "mobile" })*@
+                                    }
+                                    <ul>
+                                        <li>
+                                            <div class="selectParent">
+                                                @*@Html.DropDownList("dataCardOperators", null, "--Select--", new { @class = "operators" })*@
+
+                                                @if (UserPreferenceList[i].OperatorName != null)
+                                                {
+                                                    @Html.DropDownList("dataCardOperators", null, UserPreferenceList[i].OperatorName)
+                                                    @*@Html.DropDownList("prepaidOperators", null, ViewData["Operator"])*@
+                                                }
+                                                else
+                                                {
+                                                    @Html.DropDownList("dataCardOperators", null, "--Select--", new { @class = "operators" })
+                                                    @*@Html.DropDownList("prepaidOperators", null, "--Select--", new { onchange = @"var form = document.forms[0];form.action='Home/ServiceOperatorPlans/';" })*@
+                                                }
+
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            @if (UserPreferenceList[i].Amount != null)
+                                            {
+                                                @Html.TextBox("Amount", UserPreferenceList[i].Amount, new { @class = "amt", id = "amtFill" })
+                                                @*@Html.TextBox("Amount", ViewData["Amount"], new { @class = "amt", id = "amtFill" })*@
+                                            }
+                                            else
+                                            {
+                                                @Html.TextBoxFor(model => model.Amount, new { @class = "amt" })
+                                                @*@Html.TextBoxFor(model => model.Amount, new { @class = "amt", id = "amtFill" })*@
+                                            }
+                                            @*@Html.TextBoxFor(model => model.Amount, new { @class = "amt" })*@
+                                            @Html.ValidationMessageFor(model => model.Amount)@*<input type="text" class="amt" value="" />*@
+                                        </li>
+                                        @*@Html.TextBoxFor(model => model.Amount, new { @class = "amt" })*@
+                                        @Html.ValidationMessageFor(model => model.Amount)@*<input type="text" class="amt" value="" />*@
+                                    </ul>
+                                            break;
+                                }
+                            }
+                        }
+                        if (count == 0)
+                        {
+                            @Html.TextBoxFor(model => model.ItemCode, new { @class = "mobileno" })
+                            <ul>
+                                <li>
+                                    <div class="selectParent">
+                                        @Html.DropDownList("dataCardOperators", null, "--Select--", new { @class = "operators" })
+                                    </div>
+                                </li>
+
+                                <li>
+                                    @Html.TextBoxFor(model => model.Amount, new { @class = "amt" })
+                                    @Html.ValidationMessageFor(model => model.Amount)
+                                </li>
+                                @Html.ValidationMessageFor(model => model.Amount)
+                            </ul>
+                        }
+                        @Html.Hidden("type", ServiceEngine.ServiceType.DataCard, new { @id = "datacard" })
+                        @*<div id="clicker" class="rechargePreference"><input type="submit" class="get_recharge" /></div>*@
+                        @*<input type="submit" class="get_recharge" />*@
+                        //if (thisUser != null && thisUser != "")
+                        //{
+                        //    var userPref = db.Preferences.Where(p => p.UserProfileId == pref.UserProfileId && p.ServiceTypeId == 1).FirstOrDefault();
+                            @*if (!dataCardPrefFlag)
+                            {
+
+                                <div id="clicker" class="rechargePreference"><input type="submit" class="get_recharge" /></div>
+                                <div id="popup-wrapper" style="background-color: #ccc; padding: 5px 7px 5px 5px;">
+                                    <p style="float:right">
+                                        <a id="close-btn" href="#">
+                                            <img src="~/Images/windows_close_program.png" width="20" height="20" />
+                                        </a>
+                                    </p>
+                                    <br />
+                                    <center>
+                                        <p>
+                                            Do you want to set it as your default preference?
+                                        </p>
+                                        <br /><br />
+                                        <input type="submit" id="continue" value="Yes,Continue" style="" />
+                                        &nbsp;&nbsp;&nbsp;<input type="submit" id="skip" value="Skip" />
+                                    </center>
+                                    <br />
+                                </div>
+                            }
+                            else
+                            {
+                                <input type="submit" class="get_recharge" />
+                            }*@
+                        //}
+                        //else
+                        //{
+                            <input type="submit" class="get_recharge" />
+                        //}
+                    }
+                </div>
+
+                <label>
+                </label>
+            </div>
+
+            @*<div id="popup-wrapper" style="background-color: #ccc; padding: 5px 7px 5px 5px;">
+                    <p style="float:right">
+                        <a id="close-btn" href="#">
+                            <img src="~/Images/windows_close_program.png" width="20" height="20" />
+                        </a>
+                    </p>
+                    <br />
+                    <center>
+                        <p>
+                            Do you want to set it as your default preference?
+                        </p>
+                        <br /><br />
+                        <input type="submit" id="continue" value="Yes,Continue" style="" />
+                        &nbsp;&nbsp;&nbsp;<input type="submit" id="skip" value="Skip" />
+                    </center>
+                    <br />
+                </div>*@
+            @*</div>*@
+
+            @*
+
+                <script>
+                    // perform JavaScript after the document is scriptable.
+                    $(function () {
+                        // setup ul.tabs to work as tabs for each div directly under div.panes
+                        //$("ul.home_tabs").tabs();
+                        $("ul.home_tabs").tabs("div.panes > div");
+                    });
+                </script>
+            *@
+
+
+
+
+        </div><!--tabs-->
+      
+        <div id="ad_img">
+
+            <img src="images/ad1.jpg" width="408" height="224" />
+
+            <div class="ad_text">Stay tuned for best offers !</div>
+
+        </div>
+
+    </div><!--main tabs ends-->
+    <div id="dvPlans" style="display:none;">
+        @*@Html.Partial("~/Views/Home/OperatorPlans.cshtml")*@
+    </div>
+    <div id="mid_content">
+
+        <div id="mid_left">
+
+            <div id="operators">
+
+                <h2>Operators Support</h2>
+                <div class="line"></div>
+
+                <div class="operators_list">
+
+                    <ul>
+                        <li><img src="images/operators_01.jpg" width="120" height="65" /></li>
+                        <li><img src="images/operators_02.jpg" width="120" height="65" /></li>
+                        <li><img src="images/operators_03.jpg" width="120" height="65" /></li>
+                        <li><img src="images/operators_04.jpg" width="120" height="65" /></li>
+                        <li><img src="images/operators_05.jpg" width="120" height="65" /></li>
+                        <li><img src="images/operators_06.jpg" width="120" height="65" /></li>
+                        <li><img src="images/operators_07.jpg" width="120" height="65" /></li>
+                        <li><img src="images/operators_08.jpg" width="120" height="65" /></li>
+                        <li><img src="images/operators_09.jpg" width="120" height="65" /></li>
+                        <li><img src="images/operators_10.jpg" width="120" height="65" /></li>
+
+                    </ul>
+
+                </div>
+                <div class="line"></div>
+
+            </div><!--operators-->
+
+            <div id="payment">
+
+                <h2>Secured Payment via</h2>
+                <div class="line"></div>
+
+                <ul>
+                    <li><img src="images/payment_01.jpg" width="99" height="74" /></li>
+                    <li><img src="images/payment_02.jpg" width="96" height="74" /></li>
+                    <li><img src="images/payment_03.jpg" width="78" height="74" /></li>
+                    <li><img src="images/payment_05.jpg" width="107" height="74" /></li>
+                </ul>
+            </div><!--payment-->
+
+
+        </div><!--mid left-->
+
+
+        <div id="mid_right">
+
+            <div class="count_img">
+                <img src="images/recharge.jpg" width="266" height="69" />
+            </div>
+
+            <div id="testimonials">
+
+                <ul id="tips">
+                    <li>I found quick and excellent services at PayAtoZ for my DTH recharge. <span>-Dolly, Ahmedabad</span></li>
+                    <li>Very Good Services and Offers at PayAtoZ. Thanks.<span>- Himadri, Mumbai</span></li>
+                    <li>I got quick customer support here for my solution. <span> - Krishna, Delhi</span></li>
+
+                </ul>
+
+            </div>
+
+
+            <div id="social">
+                <a href="https://www.facebook.com/pages/Payatoz/254055998121462" target="_blank"><img src="images/fb.jpg" width="152" height="51" /></a><a href="#"><img src="images/gp.jpg" width="47" height="51" /></a><a href="#"><img src="images/lin.jpg" width="47" height="51" /></a><br />
+                <a href="#"><img class="tw" src="images/tw.jpg" width="162" height="45" /></a>
+            </div>
+
+        </div><!--mid right-->
+
+        <div>
+            @Html.HiddenFor(m => m.ProviderService.ServiceTypeId, new { id = "hdnServiceType" })
+        </div>
+    </div><!--mid ends-->
+
+</div><!--wrapper ends-->
+@*<script>
+    $("#prepaidOperators").bind("change", function () {
+        $.ajax({
+            url: "/Home/ServiceOperatorPlans/" + $("#prepaidOperators").val(),
+            type: "get",
+
+            success: function (data) {
+                console.log(data);
+                debugger;
+                var div = $("#dvPlans");
+                div.html(data);
+                //Your code here
+                //data should be your json result
+            }
+        });
+    });
+</script>*@
+
+@*<script>
+
+
+        function SavePreference() {
+
+            var serviceType;
+            if ($('#prepaid').is(':checked'))
+                serviceType = 1;
+            else if ($('#postpaid').is(':checked'))
+                serviceType = 2;
+            else if ($('#dth').is(':checked'))
+                serviceType = 3;
+            else if ($('#datacard').is(':checked'))
+                serviceType = 4;
+
+            var operator = $('#prepaidOperators').val();
+            var number = $('#mobile').val();
+            var amount = $('#amtFill').val();
+            //var userProfileId = $('#userId').val();
+
+            var Preference = {
+                //UserProfileId: userProfileId,
+                ServiceTypeId: serviceType,
+                ServiceOperatorId: operator,
+                RechargeNumber: number,
+                Amount: amount
+            }
+            debugger;
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                url: '/Home/SavePreference',
+                type: 'Post',
+                data: JSON.stringify({ preference: Preference }),
+                success: function (data) {
+                }
+            })
+        }
+    </script>*@
+
+@*<script>
+        $(function () {
+            $("#tabs").tabs();
+            $("#accordion").accordion();
+        });
+    </script>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

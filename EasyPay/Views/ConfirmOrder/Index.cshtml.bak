@@ -1,0 +1,113 @@
+﻿@model EasyPay.Models.Order
+@*@{
+    ViewBag.Title = "Index";
+}
+<h2>
+    Index</h2>
+<h3>@ViewBag.Order.ItemCode
+</h3>*@
+<div id="wrapper">
+    <div id="header">
+        <div id="logo">
+            <h1>
+                <a href="index.html">
+                    <img src="images/logo.png" alt="" /></a></h1>
+        </div>
+        <div id="links">
+            <div id="top_links">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                    <li class="no_line"><a href="contactus.html">Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--header ends-->
+    <div id="order_title">
+        <h5>
+            Order Summary</h5>
+    </div>
+    <div id="container">
+        @using (Html.BeginForm("Pay", "ConfirmOrder", FormMethod.Post, new { @id = "ConfirmOrder_form" }))
+        {
+            <div id="order_details">
+                <div id="order1">
+                    <div class="mob">
+                        <div class="order_head">
+                            Mobile No:
+                        </div>
+                        <div class="order_value">@Html.DisplayFor(modelItem => modelItem.ItemCode)</div>
+                    </div>
+                    <div class="operator">
+                        <div class="order_head">
+                            Operator:</div>
+                        <div class="order_value">@Html.DisplayFor(modelItem => modelItem.ProviderService.ServiceOperator.OperatorName)</div>
+                    </div>
+                    <div class="order_amt">
+                        <div class="order_head">
+                            Amount(Rs.):
+                        </div>
+                        <div class="order_value">@Html.DisplayFor(modelItem => modelItem.AmountString)</div>
+                    </div>
+                    <div class="total">
+                        <div class="order_head">
+                            Total Payment(Rs.):
+                        </div>
+                        <div class="order_value">@Html.DisplayFor(modelItem => modelItem.AmountString)</div>
+                    </div>
+                </div>
+                <!--order1-->
+                <div class="order_line">
+                </div>
+                <div id="order2">
+                    <div class="coup">
+                        @*<div class="order_head">Free coupon selected worth Rs.: </div>
+              <div class="order_value">0</div>*@
+                    </div>
+                    <div class="total_pay">
+                        <div class="order_head">
+                            Total Payment(Rs.):
+                        </div>
+                        <div class="order_value">@Html.DisplayFor(modelItem => modelItem.AmountString)</div>
+                    </div>
+                </div>
+                <!--order2-->
+                <div class="order_line">
+                </div>
+                <div style="float: left">
+                    @Html.RadioButton("payment", "Wallet", true, new { @id = "rbWallet" })
+                    Use your wallet
+                    @Html.RadioButton("payment", "Online Payment", new { @id = "rbOnlinePay" })
+                    Online Payment
+                </div>
+                <div class="order_line">
+                </div>
+                <input type="submit" style="float: left" class="get_recharge" />
+                @*<div id="selected_coup">
+           <ul>
+           <li> <a href="#" class="coup_cross"></a>
+           <img src="images/sd_small.gif" width="35" height="10" /><span>Rs.200</span> </li>
+            <li> <a href="#" class="coup_cross"></a>
+           <img src="images/yb_small.gif" width="35" height="10" /><span>Rs.200</span> </li>
+           
+            <li> <a href="#" class="coup_cross"></a>
+           <img src="images/myntra_small.gif" width="35" height="10" /><span>Rs.200</span> </li>
+           
+           </ul>
+           
+           </div>*@ @*<div id="proceed_btn">
+                    <input name="" type="submit" value="Proceed" />
+                </div>*@
+                <input type="submit" class="get_recharge"  />
+            </div>
+            <!--order details-->
+    
+        }
+    </div>
+    <!--container-->
+    <div id="bottom">
+    </div>
+</div>
+<!--wrapper ends-->
